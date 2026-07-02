@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9310d761dbf20e4fae2e00586f095e9, type: 3}
+  m_Name: RobotPartsListSO
+  m_EditorClassIdentifier: Assembly-CSharp::RobotPartsListSO
+  RobotPartsList:
+  - {fileID: 11400000, guid: 4290ac5d52e4c5949bc13516a2ff642e, type: 2}
+  - {fileID: 11400000, guid: e677ae8e3d0b142408ea18a6ca70da4a, type: 2}
+  - {fileID: 11400000, guid: 78c1f47a5db9218458436856b8fbdc31, type: 2}
+  - {fileID: 11400000, guid: 690cbf0e1aa608b488493981586d8c58, type: 2}
+  - {fileID: 11400000, guid: f8a53bb3f3153ef40af7f3f324dd4b57, type: 2}
