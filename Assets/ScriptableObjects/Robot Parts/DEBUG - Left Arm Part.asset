@@ -16,3 +16,10 @@ MonoBehaviour:
   PartName: Left Arm Part
   PartDescription: This is a left arm part
   PartImage: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  Stats:
+    Armor: 1
+    Mobility: 0
+    Strength: 3
+    Computation: 0
+    EnergyConsumption: 2
+    Weight: 1

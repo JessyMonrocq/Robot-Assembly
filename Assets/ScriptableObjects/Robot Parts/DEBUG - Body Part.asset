@@ -16,3 +16,10 @@ MonoBehaviour:
   PartName: Body Part
   PartDescription: This is a body part
   PartImage: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  Stats:
+    Armor: 10
+    Mobility: 0
+    Strength: 2
+    Computation: 0
+    EnergyConsumption: 5
+    Weight: 7

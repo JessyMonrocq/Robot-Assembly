@@ -1,12 +1,16 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class ItemSocket : MonoBehaviour, IDropHandler
 {
+    #region Inspector Fields
+    public event Action<RobotPartSO> OnItemSocketed;
+    public event Action<RobotPartSO> OnItemRemoved;
+
     [SerializeField] private bool useSocketKey = true;
     [SerializeField] private Image socketImage;
     [SerializeField] private RobotPartSO.RobotPartType socketType;
@@ -14,7 +18,9 @@ public class ItemSocket : MonoBehaviour, IDropHandler
     private RectTransform rectTransform;
     private DraggableItem socketedItem;
     private bool isHighlighted;
+    #endregion
 
+    #region Unity Methods
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -24,7 +30,7 @@ public class ItemSocket : MonoBehaviour, IDropHandler
 
     private void Update()
     {
-        if (DraggableItem.CurrentDraggedItem != null && DraggableItem.CurrentDraggedItem.RobotPartType == socketType)
+        if (DraggableItem.CurrentDraggedItem != null && DraggableItem.CurrentDraggedItem.RobotPartSO.PartType == socketType)
         {
             if (RectOverlap.IsOverlapping(DraggableItem.CurrentDraggedItem.RectTransform, rectTransform) && !isHighlighted)
             {
@@ -52,7 +58,7 @@ public class ItemSocket : MonoBehaviour, IDropHandler
         GameObject droppedItem = eventData.pointerDrag;
         if (droppedItem.TryGetComponent<DraggableItem>(out DraggableItem item))
         {
-            if (item.RobotPartType == socketType || !useSocketKey)
+            if (item.RobotPartSO.PartType == socketType || !useSocketKey)
             {
                 if (socketedItem != null && socketedItem != item)
                 {
@@ -65,13 +71,43 @@ public class ItemSocket : MonoBehaviour, IDropHandler
             }
         }
     }
+    #endregion
 
+    #region Public Methods
+    public void InitializeSocket()
+    {
+        if (socketedItem != null)
+        {
+            Destroy(socketedItem.gameObject);
+        }
+
+        socketedItem = null;
+        isHighlighted = false;
+
+        socketImage.rectTransform.DOKill();
+        socketImage.rectTransform.localScale = Vector3.one;
+    }
+
+    public void RemoveItem()
+    {
+        if (socketedItem != null)
+        {
+            OnItemRemoved?.Invoke(socketedItem.RobotPartSO);
+            Destroy(socketedItem.gameObject);
+            socketedItem = null;
+        }
+    }
+    #endregion
+
+    #region Coroutine Methods
     private IEnumerator SocketItemCoroutine()
     {
         socketedItem.SetDraggable(false);
         socketedItem.SetCurrentParent(transform);
         isHighlighted = false;
         yield return socketImage.rectTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack).WaitForCompletion();
+        OnItemSocketed?.Invoke(socketedItem.RobotPartSO);
         socketedItem.SetDraggable(true);
     }
+    #endregion
 }

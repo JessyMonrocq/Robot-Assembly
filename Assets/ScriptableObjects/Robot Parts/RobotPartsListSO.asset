@@ -15,6 +15,7 @@ MonoBehaviour:
   RobotPartsList:
   - {fileID: 11400000, guid: 4290ac5d52e4c5949bc13516a2ff642e, type: 2}
   - {fileID: 11400000, guid: e677ae8e3d0b142408ea18a6ca70da4a, type: 2}
+  - {fileID: 11400000, guid: 36350ad0ebb0a5c448245cc1fbfa80ea, type: 2}
   - {fileID: 11400000, guid: 78c1f47a5db9218458436856b8fbdc31, type: 2}
   - {fileID: 11400000, guid: 690cbf0e1aa608b488493981586d8c58, type: 2}
   - {fileID: 11400000, guid: f8a53bb3f3153ef40af7f3f324dd4b57, type: 2}

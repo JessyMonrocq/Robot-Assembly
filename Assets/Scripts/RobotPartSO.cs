@@ -12,9 +12,11 @@ public class RobotPartSO : ScriptableObject
         Legs
     }
 
+    [Header("Robot Part References")]
     public RobotPartType PartType;
-
     public string PartName;
     [TextArea] public string PartDescription;
     public Sprite PartImage;
+
+    public RobotStatistics Stats;
 }

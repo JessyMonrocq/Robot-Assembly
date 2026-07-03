@@ -2,9 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
-using System;
 using System.Collections;
-using Unity.VisualScripting;
 
 public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -23,7 +21,7 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public static DraggableItem CurrentDraggedItem { get; private set; }
 
-    public RobotPartSO.RobotPartType RobotPartType => assignedRobotPart.PartType;
+    public RobotPartSO RobotPartSO => assignedRobotPart;
     public RectTransform RectTransform => rectTransform;
 
     private RectTransform rectTransform;
@@ -102,6 +100,12 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (destroyOnRelease && !socketDetected)
         {
+            ItemSocket socket = startParent?.GetComponent<ItemSocket>();
+            if (socket != null)
+            {
+                socket.RemoveItem();
+            }
+
             CurrentDraggedItem = null;
             DestroyItem();
             return;

@@ -16,3 +16,10 @@ MonoBehaviour:
   PartName: Head Part
   PartDescription: This is a head part
   PartImage: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  Stats:
+    Armor: 2
+    Mobility: 0
+    Strength: 0
+    Computation: 6
+    EnergyConsumption: 5
+    Weight: 3
