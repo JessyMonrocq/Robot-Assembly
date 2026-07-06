@@ -52,8 +52,8 @@ MonoBehaviour:
   itemImage: {fileID: 8733656169506672297}
   itemOutline: {fileID: 7900030066169812001}
   followSpeed: 0.2
-  destroySpeed: 0.1
-  destroyEase: 32
+  destroySpeed: 0.15
+  destroyEase: 26
   destroyOnRelease: 1
   robotPartsListSO: {fileID: 11400000, guid: 197119854a574514d8453a2a94f14b35, type: 2}
   assignedRobotPart: {fileID: 11400000, guid: e677ae8e3d0b142408ea18a6ca70da4a, type: 2}

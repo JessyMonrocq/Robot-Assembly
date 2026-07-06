@@ -6,7 +6,7 @@ public class Specifications : MonoBehaviour
     [SerializeField] private StatDisplay armorStatDisplay;
     [SerializeField] private StatDisplay mobilityStatDisplay;
     [SerializeField] private StatDisplay strengthStatDisplay;
-    [SerializeField] private StatDisplay computationStatDisplay;
+    [SerializeField] private StatDisplay computingStatDisplay;
     [SerializeField] private StatDisplay energyStatDisplay;
     [SerializeField] private StatDisplay weightStatDisplay;
 
@@ -21,12 +21,12 @@ public class Specifications : MonoBehaviour
 
     public void UpdateSpecifications(RobotStatistics robotStatistics)
     {
-        armorStatDisplay.SetStatDisplayValues(robotStatistics.Armor / requiredStatistics.Armor, robotStatistics.Armor, requiredStatistics.Armor);
-        mobilityStatDisplay.SetStatDisplayValues(robotStatistics.Mobility / requiredStatistics.Mobility, robotStatistics.Mobility, requiredStatistics.Mobility);
-        strengthStatDisplay.SetStatDisplayValues(robotStatistics.Strength / requiredStatistics.Strength, robotStatistics.Strength, requiredStatistics.Strength);
-        computationStatDisplay.SetStatDisplayValues(robotStatistics.Computation / requiredStatistics.Computation, robotStatistics.Computation, requiredStatistics.Computation);
+        armorStatDisplay.SetStatDisplayValues(robotStatistics.Armor / requiredStatistics.Armor, robotStatistics.Armor, requiredStatistics.Armor, requiredStatistics.Armor > 0);
+        mobilityStatDisplay.SetStatDisplayValues(robotStatistics.Mobility / requiredStatistics.Mobility, robotStatistics.Mobility, requiredStatistics.Mobility, requiredStatistics.Mobility > 0);
+        strengthStatDisplay.SetStatDisplayValues(robotStatistics.Strength / requiredStatistics.Strength, robotStatistics.Strength, requiredStatistics.Strength, requiredStatistics.Strength > 0);
+        computingStatDisplay.SetStatDisplayValues(robotStatistics.Computing / requiredStatistics.Computing, robotStatistics.Computing, requiredStatistics.Computing, requiredStatistics.Computing > 0);
         
-        energyStatDisplay.SetStatDisplayValues(1 - (robotStatistics.EnergyConsumption / requiredStatistics.EnergyConsumption), robotStatistics.EnergyConsumption, requiredStatistics.EnergyConsumption);
-        weightStatDisplay.SetStatDisplayValues(1 - (robotStatistics.Weight / requiredStatistics.Weight), robotStatistics.Weight, requiredStatistics.Weight);
+        energyStatDisplay.SetStatDisplayValues(1 - (robotStatistics.EnergyConsumption / requiredStatistics.EnergyConsumption), robotStatistics.EnergyConsumption, requiredStatistics.EnergyConsumption, requiredStatistics.EnergyConsumption > 0);
+        weightStatDisplay.SetStatDisplayValues(1 - (robotStatistics.Weight / requiredStatistics.Weight), robotStatistics.Weight, requiredStatistics.Weight, requiredStatistics.Weight > 0);
     }
 }

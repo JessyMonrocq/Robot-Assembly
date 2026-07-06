@@ -88,12 +88,15 @@ public class ItemSocket : MonoBehaviour, IDropHandler
         socketImage.rectTransform.localScale = Vector3.one;
     }
 
-    public void RemoveItem()
+    public void RemoveItem(bool destroy)
     {
         if (socketedItem != null)
         {
             OnItemRemoved?.Invoke(socketedItem.RobotPartSO);
-            Destroy(socketedItem.gameObject);
+            if (destroy)
+            {
+                Destroy(socketedItem.gameObject);
+            }
             socketedItem = null;
         }
     }

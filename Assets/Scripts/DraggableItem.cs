@@ -3,10 +3,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections;
+using System;
 
 public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     #region Inspector Fields
+    public static event Action<RobotStatistics> OnItemHover;
+
     [Header("Draggable Item Settings")]
     [SerializeField] private Image itemImage;
     [SerializeField] private Outline itemOutline;
@@ -59,6 +62,7 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             return;
         }
         itemOutline.enabled = true;
+        OnItemHover?.Invoke(assignedRobotPart.Stats);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -103,7 +107,7 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             ItemSocket socket = startParent?.GetComponent<ItemSocket>();
             if (socket != null)
             {
-                socket.RemoveItem();
+                socket.RemoveItem(destroy:false);
             }
 
             CurrentDraggedItem = null;

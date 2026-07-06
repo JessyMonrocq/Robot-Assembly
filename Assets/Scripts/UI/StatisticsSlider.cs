@@ -16,9 +16,12 @@ public class StatisticsSlider : MonoBehaviour
     [SerializeField] private Image secondSliderImage;
     [SerializeField] private Slider thirdSlider;
     [SerializeField] private Image thirdSliderImage;
+    [SerializeField] private Image sliderHandleImage;
     [SerializeField] private Color firstLevelColor;
     [SerializeField] private Color secondLevelColor;
     [SerializeField] private Color thirdLevelColor;
+    [SerializeField] private Color perfectLevelColor;
+    [SerializeField] private Color zeroLevelColor;
 
     private void Awake()
     {
@@ -59,11 +62,31 @@ public class StatisticsSlider : MonoBehaviour
             firstSlider.value = 0;
             secondSlider.value = 0;
             thirdSlider.value = 0;
+            sliderHandleImage.color = zeroLevelColor;
             return;
         }
 
         firstSlider.value = value / (1f / 3f);
         secondSlider.value = (value - (1f / 3f)) / (1f / 3f);
         thirdSlider.value = (value - (2f / 3f)) / (1f / 3f);
+
+        Color handleColor = perfectLevelColor;
+        if (value < (1f / 3f))
+        {
+            handleColor = firstLevelColor;
+        }
+        else if (value < (2f/3f))
+        {
+            handleColor = secondLevelColor;
+        }
+        else if (value < 1f)
+        {
+             handleColor = thirdLevelColor;
+        }
+
+        if (sliderHandleImage.color != handleColor)
+        {
+            sliderHandleImage.color = handleColor;
+        }
     }
 }
