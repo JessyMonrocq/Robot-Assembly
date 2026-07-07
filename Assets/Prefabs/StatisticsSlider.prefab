@@ -111,6 +111,7 @@ MonoBehaviour:
   thirdLevelColor: {r: 0, g: 1, b: 0, a: 1}
   perfectLevelColor: {r: 0, g: 0.7822676, b: 1, a: 1}
   zeroLevelColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  satisfactionLevelsSO: {fileID: 11400000, guid: cf7178b95d4c1d644b78dd1133dfb1d6, type: 2}
 --- !u!114 &2563158442204659097
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -65,6 +65,11 @@ public class Assembler : MonoBehaviour
 
         foreach (RobotPartData item in robotPartsData)
         {
+            if (item.Socket != null)
+            {
+                continue;
+            }
+
             item.Socket.OnItemSocketed -= HandleItemSocketed;
             item.Socket.OnItemRemoved -= HandleItemRemoved;
         }
@@ -170,7 +175,7 @@ public class Assembler : MonoBehaviour
                 currentStatistics.Mobility += item.RobotPart.Stats.Mobility;
                 currentStatistics.Strength += item.RobotPart.Stats.Strength;
                 currentStatistics.Computing += item.RobotPart.Stats.Computing;
-                currentStatistics.EnergyConsumption += item.RobotPart.Stats.EnergyConsumption;
+                currentStatistics.Energy += item.RobotPart.Stats.Energy;
                 currentStatistics.Weight += item.RobotPart.Stats.Weight;
             }
         }

@@ -21,5 +21,5 @@ MonoBehaviour:
     Mobility: 0
     Strength: 0
     Computing: 8
-    EnergyConsumption: 5
+    Energy: 5
     Weight: 3

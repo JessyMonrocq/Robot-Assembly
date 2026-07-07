@@ -1,25 +1,9 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public struct SatisfactionLevel
-{
-    public enum SatisfactionDegree
-    {
-        Unsatisfied,
-        Poor,
-        Average,
-        Good,
-        Perfect
-    }
-
-    public SatisfactionDegree satisfactionDegree;
-    public Sprite satisfactionIcon;
-    public Color iconColor;
-}
-
 public class ResultScreenManager : MonoBehaviour
 {
+    #region Inspector Fields
     [Header("Result Screen Manager References")]
     [SerializeField] private SatisfactionLevelDisplay satisfactionLevelDisplayPrefab;
     [SerializeField] private Transform satisfactionLevelsParent;
@@ -31,19 +15,18 @@ public class ResultScreenManager : MonoBehaviour
     [SerializeField] private SatisfactionLevel goodLevel;
     [SerializeField] private SatisfactionLevel perfectLevel;
 
-    [SerializeField] private RobotResult robotResult;
+    private RobotResult robotResult;
+    #endregion
 
-    private void Awake()
-    {
-        HandleResultScreen();
-    }
-
+    #region Public Methods
     public void SetResultStatistics(RobotResult result)
     {
         robotResult = result;
         HandleResultScreen();
     }
+    #endregion
 
+    #region Private Methods
     private void HandleResultScreen()
     {
         if (robotResult == null)
@@ -51,47 +34,27 @@ public class ResultScreenManager : MonoBehaviour
             return;
         }
 
-        if (robotResult.Armor.Required > 0)
+        foreach (Transform child in satisfactionLevelsParent)
         {
-            SatisfactionLevelDisplay sld = Instantiate(satisfactionLevelDisplayPrefab, satisfactionLevelsParent);
-            SatisfactionLevel sl = GetSatisfactionLevel(robotResult.Armor.SatisfactionDegree);
-            sld.SetSatisfactionLevelDisplayValues("Armor", robotResult.Armor.Result, robotResult.Armor.Required, sl);
+            Destroy(child.gameObject);
         }
 
-        if (robotResult.Mobility.Required > 0)
+        foreach (var (name, stat) in robotResult.EnumerateStats())
         {
-            SatisfactionLevelDisplay sld = Instantiate(satisfactionLevelDisplayPrefab, satisfactionLevelsParent);
-            SatisfactionLevel sl = GetSatisfactionLevel(robotResult.Mobility.SatisfactionDegree);
-            sld.SetSatisfactionLevelDisplayValues("Mobility", robotResult.Mobility.Result, robotResult.Mobility.Required, sl);
+            CreateDisplay(name, stat);
+        }
+    }
+
+    private void CreateDisplay(string statName, RobotStatResult stat)
+    {
+        if (stat.Required <= 0)
+        {
+            return;
         }
 
-        if (robotResult.Strength.Required > 0)
-        {
-            SatisfactionLevelDisplay sld = Instantiate(satisfactionLevelDisplayPrefab, satisfactionLevelsParent);
-            SatisfactionLevel sl = GetSatisfactionLevel(robotResult.Strength.SatisfactionDegree);
-            sld.SetSatisfactionLevelDisplayValues("Strength", robotResult.Strength.Result, robotResult.Strength.Required, sl);
-        }
-
-        if (robotResult.Computing.Required > 0)
-        {
-            SatisfactionLevelDisplay sld = Instantiate(satisfactionLevelDisplayPrefab, satisfactionLevelsParent);
-            SatisfactionLevel sl = GetSatisfactionLevel(robotResult.Computing.SatisfactionDegree);
-            sld.SetSatisfactionLevelDisplayValues("Computing", robotResult.Computing.Result, robotResult.Computing.Required, sl);
-        }
-
-        if (robotResult.Energy.Required > 0)
-        {
-            SatisfactionLevelDisplay sld = Instantiate(satisfactionLevelDisplayPrefab, satisfactionLevelsParent);
-            SatisfactionLevel sl = GetSatisfactionLevel(robotResult.Energy.SatisfactionDegree);
-            sld.SetSatisfactionLevelDisplayValues("Energy", robotResult.Energy.Result, robotResult.Energy.Required, sl);
-        }
-
-        if (robotResult.Weight.Required > 0)
-        {
-            SatisfactionLevelDisplay sld = Instantiate(satisfactionLevelDisplayPrefab, satisfactionLevelsParent);
-            SatisfactionLevel sl = GetSatisfactionLevel(robotResult.Weight.SatisfactionDegree);
-            sld.SetSatisfactionLevelDisplayValues("Weight", robotResult.Weight.Result, robotResult.Weight.Required, sl);
-        }
+        SatisfactionLevelDisplay sld = Instantiate(satisfactionLevelDisplayPrefab, satisfactionLevelsParent);
+        SatisfactionLevel sl = GetSatisfactionLevel(stat.SatisfactionDegree);
+        sld.SetSatisfactionLevelDisplayValues(statName, stat.Result, stat.Required, sl);
     }
 
     private SatisfactionLevel GetSatisfactionLevel(SatisfactionLevel.SatisfactionDegree degree)
@@ -106,4 +69,5 @@ public class ResultScreenManager : MonoBehaviour
             _ => throw new ArgumentOutOfRangeException(nameof(degree), degree, null)
         };
     }
+    #endregion
 }

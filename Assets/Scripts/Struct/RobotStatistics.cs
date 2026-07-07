@@ -9,6 +9,6 @@ public struct RobotStatistics
     public float Mobility;
     public float Strength;
     public float Computing;
-    public float EnergyConsumption;
+    public float Energy;
     public float Weight;
 }

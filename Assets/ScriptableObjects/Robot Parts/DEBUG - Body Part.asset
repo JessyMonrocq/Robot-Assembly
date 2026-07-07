@@ -20,6 +20,6 @@ MonoBehaviour:
     Armor: 10
     Mobility: 0
     Strength: 2
-    Computation: 0
-    EnergyConsumption: 5
+    Computing: 0
+    Energy: 3
     Weight: 7

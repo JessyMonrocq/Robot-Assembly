@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections.Concurrent;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,9 @@ public class StatisticsSlider : MonoBehaviour
     [SerializeField] private Color thirdLevelColor;
     [SerializeField] private Color perfectLevelColor;
     [SerializeField] private Color zeroLevelColor;
+
+    [Header("Satisfaction Levels")]
+    [SerializeField] private SatisfactionLevelsSO satisfactionLevelsSO;
 
     private void Awake()
     {
@@ -57,32 +61,22 @@ public class StatisticsSlider : MonoBehaviour
 
     private void HandleSliderValue(float value)
     {
-        if (value == 0)
+        float partition = satisfactionLevelsSO.Partition;
+
+        if (Mathf.Approximately(value, 0f))
         {
-            firstSlider.value = 0;
-            secondSlider.value = 0;
-            thirdSlider.value = 0;
+            firstSlider.value = secondSlider.value = thirdSlider.value = 0f;
             sliderHandleImage.color = zeroLevelColor;
             return;
         }
 
-        firstSlider.value = value / (1f / 3f);
-        secondSlider.value = (value - (1f / 3f)) / (1f / 3f);
-        thirdSlider.value = (value - (2f / 3f)) / (1f / 3f);
+        firstSlider.value = Mathf.Clamp01(value / partition);
+        secondSlider.value = Mathf.Clamp01((value - partition) / partition);
+        thirdSlider.value = Mathf.Clamp01((value - 2f * partition) / partition);
 
-        Color handleColor = perfectLevelColor;
-        if (value < (1f / 3f))
-        {
-            handleColor = firstLevelColor;
-        }
-        else if (value < (2f/3f))
-        {
-            handleColor = secondLevelColor;
-        }
-        else if (value < 1f)
-        {
-             handleColor = thirdLevelColor;
-        }
+        Color handleColor = value < partition ? firstLevelColor :
+                           value < 2f * partition ? secondLevelColor :
+                           value < 1f ? thirdLevelColor : perfectLevelColor;
 
         if (sliderHandleImage.color != handleColor)
         {

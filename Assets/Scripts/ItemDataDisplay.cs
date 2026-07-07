@@ -48,7 +48,7 @@ public class ItemDataDisplay : MonoBehaviour
         mobilityDataText.text = stats.Mobility.ToString();
         strengthDataText.text = stats.Strength.ToString();
         computingDataText.text = stats.Computing.ToString();
-        energyDataText.text = stats.EnergyConsumption.ToString();
+        energyDataText.text = stats.Energy.ToString();
         weightDataText.text = stats.Weight.ToString();
     }
 

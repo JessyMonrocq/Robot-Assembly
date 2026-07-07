@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -18,4 +19,14 @@ public class RobotResult
     public RobotStatResult Computing;
     public RobotStatResult Energy;
     public RobotStatResult Weight;
+
+    public IEnumerable<(string Name, RobotStatResult Stat)> EnumerateStats()
+    {
+        yield return ("Armor", Armor);
+        yield return ("Mobility", Mobility);
+        yield return ("Strength", Strength);
+        yield return ("Computing", Computing);
+        yield return ("Energy", Energy);
+        yield return ("Weight", Weight);
+    }
 }
