@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class StatDisplay : MonoBehaviour
+public class StatisticsSliderDisplay : MonoBehaviour
 {
     [Header("Stat Display References")]
     [SerializeField] private StatisticsSlider statisticsSlider;

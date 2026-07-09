@@ -4,22 +4,16 @@ public class Specifications : MonoBehaviour
 {
     #region Inspector Fields
     [Header("Robot Specifications References")]
-    [SerializeField] private StatDisplay armorStatDisplay;
-    [SerializeField] private StatDisplay mobilityStatDisplay;
-    [SerializeField] private StatDisplay strengthStatDisplay;
-    [SerializeField] private StatDisplay computingStatDisplay;
-    [SerializeField] private StatDisplay energyStatDisplay;
-    [SerializeField] private StatDisplay weightStatDisplay;
+    [SerializeField] private StatisticsSliderDisplay armorStatDisplay;
+    [SerializeField] private StatisticsSliderDisplay mobilityStatDisplay;
+    [SerializeField] private StatisticsSliderDisplay strengthStatDisplay;
+    [SerializeField] private StatisticsSliderDisplay computingStatDisplay;
+    [SerializeField] private StatisticsSliderDisplay energyStatDisplay;
+    [SerializeField] private StatisticsSliderDisplay weightStatDisplay;
 
     [Space(10)]
-    [SerializeField] private RobotStatistics requiredStatistics;
+    private RobotStatistics requiredStatistics;
     private RobotStatistics currentStatistics;
-
-    public RobotStatistics RequiredStatistics
-    {
-        get { return requiredStatistics; }
-        set { requiredStatistics = value; }
-    }
 
     [Space(10)]
     [Header("Satisfaction Levels")]
@@ -27,6 +21,12 @@ public class Specifications : MonoBehaviour
     #endregion
 
     #region Public Methods
+    public void InitializeSpecifications(RobotStatistics statistics)
+    {
+        requiredStatistics = statistics;
+        UpdateSpecifications(new RobotStatistics());
+    }
+
     public void UpdateSpecifications(RobotStatistics robotStatistics)
     {
         armorStatDisplay.SetStatDisplayValues(robotStatistics.Armor / requiredStatistics.Armor, robotStatistics.Armor, requiredStatistics.Armor, requiredStatistics.Armor > 0);

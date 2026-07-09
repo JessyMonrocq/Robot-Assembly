@@ -40,8 +40,11 @@ public class ConfirmBuildDisplay : MonoBehaviour
 
     }
 
-    private void InitializeConfirmBuildDisplay()
+    public void InitializeConfirmBuildDisplay()
     {
+        confirmBuildPanel.DOKill();
+        confirmBuildCG.DOKill();
+
         confirmBuildPanel.transform.localPosition = new Vector3(confirmBuildPosOffset, 0, 0);
         confirmBuildCG.alpha = 0f;
         confirmBuildCG.interactable = false;

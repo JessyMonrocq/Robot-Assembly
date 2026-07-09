@@ -10,6 +10,7 @@ public class AssemblerGameManager : MonoBehaviour
     [SerializeField] private Specifications specifications;
     [SerializeField] private ConfirmBuildDisplay confirmBuildDisplay;
     [SerializeField] private ResultScreenManager resultScreenManager;
+    [SerializeField] private ItemDataDisplay itemDataDisplay;
     [SerializeField] private CanvasGroup backgroundBlurCG;
     [SerializeField] private CanvasGroup assemblerScreenCG;
     [SerializeField] private CanvasGroup resultsScreenCG;
@@ -35,20 +36,6 @@ public class AssemblerGameManager : MonoBehaviour
     {
         backgroundBlurCG.alpha = 0f;
         backgroundBlurCG.gameObject.SetActive(false);
-
-        assemblerScreenCG.alpha = 1f;
-        assemblerScreenCG.interactable = true;
-        assemblerScreenCG.blocksRaycasts = true;
-
-        resultsScreenCG.alpha = 0f;
-        resultsScreenCG.interactable = false;
-        resultsScreenCG.blocksRaycasts = false;
-    }
-
-    private void Start()
-    {
-        RobotStatistics initialStatistics = new RobotStatistics();
-        specifications.UpdateSpecifications(initialStatistics);
     }
     #endregion
 
@@ -64,6 +51,22 @@ public class AssemblerGameManager : MonoBehaviour
     public void DisplayRobotResults()
     {
         StartCoroutine(DisplayResultScreenCoroutine());
+    }
+
+    public void SetRequestedStatistics(RobotStatistics statistics)
+    {
+        specifications.InitializeSpecifications(statistics);
+    }
+
+    public void ResetAssemblerGame()
+    {
+        backgroundBlurCG.alpha = 0f;
+        backgroundBlurCG.gameObject.SetActive(false);
+
+        itemDataDisplay.InitializeItemDataDisplay();
+        confirmBuildDisplay.InitializeConfirmBuildDisplay();
+        specifications.InitializeSpecifications(new RobotStatistics());
+        assembler.ResetAssembler();
     }
     #endregion
 

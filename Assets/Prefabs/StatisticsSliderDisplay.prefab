@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8713286876102486301}
   - component: {fileID: 6728261326964576867}
   m_Layer: 5
-  m_Name: StatDisplay
+  m_Name: StatisticsSliderDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 269174115616325767}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: feef96b246d1fdf43bd04076209c885a, type: 3}
+  m_Script: {fileID: 11500000, guid: 456b779bbad06d04988be01ef6883357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatDisplay
   statisticsSlider: {fileID: 2138071360842392584}

@@ -24,6 +24,11 @@ public class ResultScreenManager : MonoBehaviour
         robotResult = result;
         HandleResultScreen();
     }
+
+    public void BackToMenu()
+    {
+        GameManager.Instance.ReturnToRequestScreen();
+    }
     #endregion
 
     #region Private Methods
