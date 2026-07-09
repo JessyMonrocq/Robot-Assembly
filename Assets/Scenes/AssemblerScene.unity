@@ -3242,9 +3242,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   requestScreen: {fileID: 1234869411}
   assemblerScreen: {fileID: 1145548630}
-  assemblerGameScree: {fileID: 1450345967}
+  assemblerGameScreen: {fileID: 1450345967}
   resultsScreen: {fileID: 401503899}
   assemblerGameManager: {fileID: 1145548631}
+  resultScreenManager: {fileID: 401503898}
+  transitionSpeed: 0.25
+  transitionDelay: 0.25
+  transitionEase: 22
 --- !u!1001 &464975081
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6786,8 +6790,6 @@ MonoBehaviour:
   resultScreenManager: {fileID: 401503898}
   itemDataDisplay: {fileID: 161577175}
   backgroundBlurCG: {fileID: 1501481628}
-  assemblerScreenCG: {fileID: 1145548630}
-  resultsScreenCG: {fileID: 401503899}
   animationDuration: 0.25
   animationEase: 1
 --- !u!1 &1183670029

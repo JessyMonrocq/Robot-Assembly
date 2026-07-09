@@ -12,8 +12,6 @@ public class AssemblerGameManager : MonoBehaviour
     [SerializeField] private ResultScreenManager resultScreenManager;
     [SerializeField] private ItemDataDisplay itemDataDisplay;
     [SerializeField] private CanvasGroup backgroundBlurCG;
-    [SerializeField] private CanvasGroup assemblerScreenCG;
-    [SerializeField] private CanvasGroup resultsScreenCG;
 
     [SerializeField] private float animationDuration = 0.5f;
     [SerializeField] private Ease animationEase = Ease.Linear;
@@ -50,7 +48,7 @@ public class AssemblerGameManager : MonoBehaviour
 
     public void DisplayRobotResults()
     {
-        StartCoroutine(DisplayResultScreenCoroutine());
+        GameManager.Instance.DisplayResultScreen(specifications.CreateRobotResult());
     }
 
     public void SetRequestedStatistics(RobotStatistics statistics)
@@ -76,21 +74,6 @@ public class AssemblerGameManager : MonoBehaviour
         backgroundBlurCG.DOFade(0, animationDuration).SetEase(animationEase).OnComplete(() =>
             backgroundBlurCG.gameObject.SetActive(false)
         );
-    }
-    #endregion
-
-    #region Coroutine Methods
-    private IEnumerator DisplayResultScreenCoroutine()
-    {
-        assemblerScreenCG.interactable = false;
-        assemblerScreenCG.blocksRaycasts = false;
-        yield return assemblerScreenCG.DOFade(0f, animationDuration).SetEase(animationEase).WaitForCompletion();
-        yield return new WaitForSeconds(1f);
-        yield return resultsScreenCG.DOFade(1f, animationDuration).SetEase(animationEase).WaitForCompletion();
-        resultsScreenCG.interactable = true;
-        resultsScreenCG.blocksRaycasts = true;
-        yield return new WaitForSeconds(1f);
-        resultScreenManager.SetResultStatistics(specifications.CreateRobotResult());
     }
     #endregion
 }

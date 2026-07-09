@@ -1,16 +1,26 @@
+using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    #region Inspector Fields
     public static GameManager Instance;
 
     [Header("Game Manager References")]
     [SerializeField] private CanvasGroup requestScreen;
     [SerializeField] private CanvasGroup assemblerScreen;
-    [SerializeField] private CanvasGroup assemblerGameScree;
+    [SerializeField] private CanvasGroup assemblerGameScreen;
     [SerializeField] private CanvasGroup resultsScreen;
     [SerializeField] private AssemblerGameManager assemblerGameManager;
+    [SerializeField] private ResultScreenManager resultScreenManager;
 
+    [SerializeField] private float transitionSpeed = 0.5f;
+    [SerializeField] private float transitionDelay = 0.5f;
+    [SerializeField] private Ease transitionEase;
+    #endregion
+
+    #region Unity Methods
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -23,42 +33,57 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
-        SetCanvasGroup(requestScreen, true, false);
-        SetCanvasGroup(assemblerScreen, false, false);
-        SetCanvasGroup(assemblerGameScree, false, false);
-        SetCanvasGroup(resultsScreen, false, false);
+        SetCanvasGroup(requestScreen, true);
+        SetCanvasGroup(assemblerScreen, false);
+        SetCanvasGroup(assemblerGameScreen, false);
+        SetCanvasGroup(resultsScreen, false);
     }
+    #endregion
 
+    #region Public Methods
     public void StartAssembling(RobotStatistics requestedRobotStatistics)
     {
-        SetCanvasGroup(requestScreen, false, false);
         assemblerGameManager.ResetAssemblerGame();
         assemblerGameManager.SetRequestedStatistics(requestedRobotStatistics);
-        SetCanvasGroup(assemblerScreen, true, false);
+        TransitionBetweenScreens(requestScreen, assemblerScreen);
     }
-    
+
+    public void DisplayResultScreen(RobotResult results)
+    {
+        TransitionBetweenScreens(assemblerScreen, resultsScreen);
+        resultScreenManager.SetResultStatistics(results);
+    }
+
     public void ReturnToRequestScreen()
     {
-        SetCanvasGroup(resultsScreen, false, false);
-        SetCanvasGroup(requestScreen, true, false);
+        TransitionBetweenScreens(resultsScreen, requestScreen);
     }
+    #endregion
 
-    public void DEBUG_TEST()
+    #region Private Methods
+    private void SetCanvasGroup(CanvasGroup cg, bool enabled)
     {
-        Debug.Log("Test Message");
+        cg.alpha = enabled ? 1f : 0f;
+        cg.interactable = enabled ? true : false;
+        cg.blocksRaycasts = enabled ? true : false;
     }
 
-    private void SetCanvasGroup(CanvasGroup cg, bool enabled, bool useTransition)
+    private void TransitionBetweenScreens(CanvasGroup firstScreen, CanvasGroup newScreen)
     {
-        if (useTransition)
-        {
-
-        }
-        else
-        {
-            cg.alpha = enabled ? 1f : 0f;
-            cg.interactable = enabled ? true : false;
-            cg.blocksRaycasts = enabled ? true : false;
-        }
+        StartCoroutine(TransitionCoroutine(firstScreen, newScreen));
     }
+    #endregion
+
+    #region Coroutine Methods
+    private IEnumerator TransitionCoroutine(CanvasGroup firstScene, CanvasGroup newScene)
+    {
+        firstScene.interactable = false;
+        firstScene.blocksRaycasts = false;
+        yield return firstScene.DOFade(0f, transitionSpeed).SetEase(transitionEase).WaitForCompletion();
+        yield return new WaitForSeconds(transitionDelay);
+        yield return newScene.DOFade(1f, transitionSpeed).SetEase(transitionEase).WaitForCompletion();
+        newScene.interactable = true;
+        newScene.blocksRaycasts = true;
+    }
+    #endregion
 }
