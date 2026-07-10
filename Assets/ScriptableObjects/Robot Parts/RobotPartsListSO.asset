@@ -13,9 +13,28 @@ MonoBehaviour:
   m_Name: RobotPartsListSO
   m_EditorClassIdentifier: Assembly-CSharp::RobotPartsListSO
   RobotPartsList:
-  - {fileID: 11400000, guid: 4290ac5d52e4c5949bc13516a2ff642e, type: 2}
-  - {fileID: 11400000, guid: e677ae8e3d0b142408ea18a6ca70da4a, type: 2}
-  - {fileID: 11400000, guid: 36350ad0ebb0a5c448245cc1fbfa80ea, type: 2}
-  - {fileID: 11400000, guid: 78c1f47a5db9218458436856b8fbdc31, type: 2}
-  - {fileID: 11400000, guid: 690cbf0e1aa608b488493981586d8c58, type: 2}
-  - {fileID: 11400000, guid: f8a53bb3f3153ef40af7f3f324dd4b57, type: 2}
+  - {fileID: 11400000, guid: 27b10234c3abe114998a71be055eaa0f, type: 2}
+  - {fileID: 11400000, guid: 5a6176774948f7d47a745adb3127116e, type: 2}
+  - {fileID: 11400000, guid: 2234a1481c7aa06449badff5b603a929, type: 2}
+  - {fileID: 11400000, guid: 82526caf5ef43a4448dfc0549aeda39d, type: 2}
+  - {fileID: 11400000, guid: 123f58fe6ad5fe8488d483ae8db0adf9, type: 2}
+  - {fileID: 11400000, guid: ad325cef79f324c4aa19aaa41a091250, type: 2}
+  - {fileID: 11400000, guid: f999e3be551cc36419f62d82c5d0ac09, type: 2}
+  - {fileID: 11400000, guid: 7f80e3d24744f294ca6da7c87800dfd3, type: 2}
+  - {fileID: 11400000, guid: 45b856f4f091b4c43af142e0e8cf002d, type: 2}
+  - {fileID: 11400000, guid: d5609a7ec7dd7984c8233aab76b75a98, type: 2}
+  - {fileID: 11400000, guid: f16a912f187e65340bc29e7a6fee209b, type: 2}
+  - {fileID: 11400000, guid: 38d255d98bddde4468a14b01b27e0ebb, type: 2}
+  - {fileID: 11400000, guid: 4b12d84ee5cd01d42ab3994745a90997, type: 2}
+  - {fileID: 11400000, guid: fb4e37c6f684e6c419129131697bec7b, type: 2}
+  - {fileID: 11400000, guid: 04d15d55423c5044c870312f239f8647, type: 2}
+  - {fileID: 11400000, guid: f1582f7e07686344ab8dc58cc837b489, type: 2}
+  - {fileID: 11400000, guid: b4207d5016b2aa342af13803f8c8a808, type: 2}
+  - {fileID: 11400000, guid: 42afcb3bc495b0a4ea64b5697d98154f, type: 2}
+  - {fileID: 11400000, guid: d4476a18e3e4a424ab72d2b8f33bad83, type: 2}
+  - {fileID: 11400000, guid: cda9b1ad4c7240e44ab0dd216728381e, type: 2}
+  - {fileID: 11400000, guid: b55f558de97c34241b5ffc934a7fc006, type: 2}
+  - {fileID: 11400000, guid: 004d426b6a3f5094aa352f4025500ef5, type: 2}
+  - {fileID: 11400000, guid: 8b1ebc8193c529741bc5454bae5a864a, type: 2}
+  - {fileID: 11400000, guid: 7fe822335ea39cc43b6968c0cd9b3d4e, type: 2}
+  - {fileID: 11400000, guid: 7e37e4c9cb3ffa646be3144514c7ba01, type: 2}

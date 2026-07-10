@@ -1,17 +1,20 @@
+using TMPro;
 using UnityEngine;
 
 public class RequestTicket : MonoBehaviour
 {
-    [SerializeField] private RobotStatistics requestRobotStatistics;
+    [SerializeField] private RequestSO requestSO;
     [SerializeField] private StatisticsDisplay statisticsDisplay;
+    [SerializeField] private TextMeshProUGUI chronoText;
 
     private void Awake()
     {
-        statisticsDisplay.SetStatistics(requestRobotStatistics);
+        statisticsDisplay.SetStatistics(requestSO.RequestStats);
+        chronoText.text = requestSO.Chrono.ToString();
     }
 
     public void ConfirmRequest()
     {
-        GameManager.Instance.StartAssembling(requestRobotStatistics);
+        GameManager.Instance.StartAssembling(requestSO);
     }
 }

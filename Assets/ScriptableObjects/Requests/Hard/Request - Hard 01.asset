@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67517cbc3b2624444a7bab8754121d65, type: 3}
+  m_Name: Request - Hard 01
+  m_EditorClassIdentifier: Assembly-CSharp::RequestSO
+  RequestStats:
+    Armor: 20
+    Mobility: 0
+    Strength: 20
+    Computing: 0
+    Energy: 0
+    Weight: 24
+  Chrono:
+    minutes: 1
+    seconds: 30

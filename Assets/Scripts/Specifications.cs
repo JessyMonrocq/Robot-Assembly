@@ -29,13 +29,21 @@ public class Specifications : MonoBehaviour
 
     public void UpdateSpecifications(RobotStatistics robotStatistics)
     {
-        armorStatDisplay.SetStatDisplayValues(robotStatistics.Armor / requiredStatistics.Armor, robotStatistics.Armor, requiredStatistics.Armor, requiredStatistics.Armor > 0);
-        mobilityStatDisplay.SetStatDisplayValues(robotStatistics.Mobility / requiredStatistics.Mobility, robotStatistics.Mobility, requiredStatistics.Mobility, requiredStatistics.Mobility > 0);
-        strengthStatDisplay.SetStatDisplayValues(robotStatistics.Strength / requiredStatistics.Strength, robotStatistics.Strength, requiredStatistics.Strength, requiredStatistics.Strength > 0);
-        computingStatDisplay.SetStatDisplayValues(robotStatistics.Computing / requiredStatistics.Computing, robotStatistics.Computing, requiredStatistics.Computing, requiredStatistics.Computing > 0);
-        
-        energyStatDisplay.SetStatDisplayValues(1 - (robotStatistics.Energy / requiredStatistics.Energy), robotStatistics.Energy, requiredStatistics.Energy, requiredStatistics.Energy > 0);
-        weightStatDisplay.SetStatDisplayValues(1 - (robotStatistics.Weight / requiredStatistics.Weight), robotStatistics.Weight, requiredStatistics.Weight, requiredStatistics.Weight > 0);
+        float armorSlider = requiredStatistics.Armor > 0f ? Mathf.Clamp01(robotStatistics.Armor / requiredStatistics.Armor) : 0f;
+        float mobilitySlider = requiredStatistics.Mobility > 0f ? Mathf.Clamp01(robotStatistics.Mobility / requiredStatistics.Mobility) : 0f;
+        float strengthSlider = requiredStatistics.Strength > 0f ? Mathf.Clamp01(robotStatistics.Strength / requiredStatistics.Strength) : 0f;
+        float computingSlider = requiredStatistics.Computing > 0f ? Mathf.Clamp01(robotStatistics.Computing / requiredStatistics.Computing) : 0f;
+
+        float energySlider = requiredStatistics.Energy > 0f ? Mathf.Clamp01(1f - (robotStatistics.Energy / requiredStatistics.Energy)) : 0f;
+        float weightSlider = requiredStatistics.Weight > 0f ? Mathf.Clamp01(1f - (robotStatistics.Weight / requiredStatistics.Weight)) : 0f;
+
+        armorStatDisplay.SetStatDisplayValues(armorSlider, robotStatistics.Armor, requiredStatistics.Armor, requiredStatistics.Armor > 0);
+        mobilityStatDisplay.SetStatDisplayValues(mobilitySlider, robotStatistics.Mobility, requiredStatistics.Mobility, requiredStatistics.Mobility > 0);
+        strengthStatDisplay.SetStatDisplayValues(strengthSlider, robotStatistics.Strength, requiredStatistics.Strength, requiredStatistics.Strength > 0);
+        computingStatDisplay.SetStatDisplayValues(computingSlider, robotStatistics.Computing, requiredStatistics.Computing, requiredStatistics.Computing > 0);
+
+        energyStatDisplay.SetStatDisplayValues(energySlider, robotStatistics.Energy, requiredStatistics.Energy, requiredStatistics.Energy > 0);
+        weightStatDisplay.SetStatDisplayValues(weightSlider, robotStatistics.Weight, requiredStatistics.Weight, requiredStatistics.Weight > 0);
 
         currentStatistics = robotStatistics;
     }

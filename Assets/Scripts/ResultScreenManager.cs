@@ -1,5 +1,7 @@
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ResultScreenManager : MonoBehaviour
 {
@@ -7,6 +9,9 @@ public class ResultScreenManager : MonoBehaviour
     [Header("Result Screen Manager References")]
     [SerializeField] private SatisfactionLevelDisplay satisfactionLevelDisplayPrefab;
     [SerializeField] private Transform satisfactionLevelsParent;
+    [SerializeField] private CanvasGroup finalScoreCG;
+    [SerializeField] private Image finalScoreImage;
+    [SerializeField] private TextMeshProUGUI finalScoreComment;
 
     [Header("Satisfaction Levels")]
     [SerializeField] private SatisfactionLevel unsatisfiedLevel;
@@ -27,7 +32,7 @@ public class ResultScreenManager : MonoBehaviour
 
     public void BackToMenu()
     {
-        GameManager.Instance.ReturnToRequestScreen();
+        GameManager.Instance.ReturnToRequestScreen(GetComponent<CanvasGroup>());
     }
     #endregion
 
@@ -47,6 +52,69 @@ public class ResultScreenManager : MonoBehaviour
         foreach (var (name, stat) in robotResult.EnumerateStats())
         {
             CreateDisplay(name, stat);
+        }
+
+        CalculateFinalScore();
+    }
+
+    private void CalculateFinalScore()
+    {
+        if (robotResult == null)
+        {
+            return;
+        }
+
+        int count = 0;
+        int sumDegrees = 0;
+
+        foreach (var (_, stat) in robotResult.EnumerateStats())
+        {
+            if (stat.Required <= 0f)
+            {
+                continue;
+            }
+
+            count++;
+
+            if (stat.SatisfactionDegree == SatisfactionLevel.SatisfactionDegree.Unsatisfied)
+            {
+                var finalSL = GetSatisfactionLevel(SatisfactionLevel.SatisfactionDegree.Unsatisfied);
+                if (finalScoreImage != null)
+                {
+                    finalScoreImage.sprite = finalSL.satisfactionIcon;
+                    finalScoreImage.color = finalSL.iconColor;
+                }
+
+                if (finalScoreComment != null)
+                {
+                    finalScoreComment.text = SatisfactionLevel.SatisfactionDegree.Unsatisfied.ToString();
+                }
+
+                return;
+            }
+
+            sumDegrees += (int)stat.SatisfactionDegree;
+        }
+
+        if (count == 0)
+        {
+            return;
+        }
+
+        float avg = (float)sumDegrees / count;
+        int nearest = Mathf.Clamp(Mathf.RoundToInt(avg), (int)SatisfactionLevel.SatisfactionDegree.Unsatisfied, (int)SatisfactionLevel.SatisfactionDegree.Perfect);
+        var averagedDegree = (SatisfactionLevel.SatisfactionDegree)nearest;
+        var averagedSL = GetSatisfactionLevel(averagedDegree);
+
+        if (finalScoreImage != null)
+        {
+            finalScoreImage.sprite = averagedSL.satisfactionIcon;
+            finalScoreImage.color = averagedSL.iconColor;
+        }
+
+        if (finalScoreComment != null)
+        {
+            finalScoreComment.text = averagedDegree.ToString();
         }
     }
 

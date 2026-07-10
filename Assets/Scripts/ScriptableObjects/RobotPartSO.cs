@@ -17,6 +17,7 @@ public class RobotPartSO : ScriptableObject
     public string PartName;
     [TextArea] public string PartDescription;
     public Sprite PartImage;
+    public Color ImageTint = Color.white;
 
     public RobotStatistics Stats;
 }

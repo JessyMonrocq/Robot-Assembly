@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AssemblerGameManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class AssemblerGameManager : MonoBehaviour
     [SerializeField] private ConfirmBuildDisplay confirmBuildDisplay;
     [SerializeField] private ResultScreenManager resultScreenManager;
     [SerializeField] private ItemDataDisplay itemDataDisplay;
+    [SerializeField] private Toggle itemListToggle;
+    [SerializeField] private ChronoDisplay chronoDisplay;
     [SerializeField] private CanvasGroup backgroundBlurCG;
 
     [SerializeField] private float animationDuration = 0.5f;
@@ -22,12 +25,14 @@ public class AssemblerGameManager : MonoBehaviour
     {
         assembler.OnRobotStatisticsUpdated += specifications.UpdateSpecifications;
         confirmBuildDisplay.OnDisplayHidden += HideConfirmBuild;
+        chronoDisplay.OnChronoEnded += InterruptGame;
     }
 
     private void OnDisable()
     {
         assembler.OnRobotStatisticsUpdated -= specifications.UpdateSpecifications;
         confirmBuildDisplay.OnDisplayHidden -= HideConfirmBuild;
+        chronoDisplay.OnChronoEnded -= InterruptGame;
     }
 
     private void Awake()
@@ -48,6 +53,7 @@ public class AssemblerGameManager : MonoBehaviour
 
     public void DisplayRobotResults()
     {
+        chronoDisplay.ResetChrono();
         GameManager.Instance.DisplayResultScreen(specifications.CreateRobotResult());
     }
 
@@ -56,15 +62,18 @@ public class AssemblerGameManager : MonoBehaviour
         specifications.InitializeSpecifications(statistics);
     }
 
-    public void ResetAssemblerGame()
+    public void ResetAssemblerGame(ChronoFormat chrono, float chronoDelay)
     {
         backgroundBlurCG.alpha = 0f;
         backgroundBlurCG.gameObject.SetActive(false);
 
         itemDataDisplay.InitializeItemDataDisplay();
+        itemListToggle.Select();
         confirmBuildDisplay.InitializeConfirmBuildDisplay();
         specifications.InitializeSpecifications(new RobotStatistics());
         assembler.ResetAssembler();
+
+        chronoDisplay.InitializeChrono(chrono, chronoDelay);
     }
     #endregion
 
@@ -74,6 +83,11 @@ public class AssemblerGameManager : MonoBehaviour
         backgroundBlurCG.DOFade(0, animationDuration).SetEase(animationEase).OnComplete(() =>
             backgroundBlurCG.gameObject.SetActive(false)
         );
+    }
+
+    private void InterruptGame()
+    {
+        GameManager.Instance.DisplayFailureScreen();
     }
     #endregion
 }

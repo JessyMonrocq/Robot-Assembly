@@ -136,6 +136,7 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         assignedRobotPart = robotPart;
         itemImage.sprite = robotPart.PartImage;
+        itemImage.color = robotPart.ImageTint;
     }
 
     public void SetDraggable(bool value)
