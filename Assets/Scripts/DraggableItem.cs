@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections;
 using System;
+using Coffee.UIEffects;
 
 public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -12,7 +13,7 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     [Header("Draggable Item Settings")]
     [SerializeField] private Image itemImage;
-    [SerializeField] private Outline itemOutline;
+    [SerializeField] private UIEffect itemEffect;
     [SerializeField] private float followSpeed = 0.1f;
     [SerializeField] private float destroySpeed = 0.05f;
     [SerializeField] private Ease destroyEase = Ease.Flash;
@@ -42,7 +43,8 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         rectTransform = GetComponent<RectTransform>();
         parentCanvas = GetComponentInParent<Canvas>();
 
-        itemOutline.enabled = false;
+        itemEffect.edgeMode = EdgeMode.None;
+        itemEffect.shadowMode = ShadowMode.None;
 
         socketDetected = false;
         canDrag = true;
@@ -61,13 +63,13 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             return;
         }
-        itemOutline.enabled = true;
+        itemEffect.edgeMode = EdgeMode.Plain;
         OnItemHover?.Invoke(assignedRobotPart.Stats);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        itemOutline.enabled = false;
+        itemEffect.edgeMode = EdgeMode.None;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -81,6 +83,8 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
         itemImage.raycastTarget = false;
+
+        itemEffect.shadowMode = ShadowMode.Shadow;
 
         CurrentDraggedItem = this;
     }
@@ -114,6 +118,8 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             DestroyItem();
             return;
         }
+
+        itemEffect.shadowMode = ShadowMode.None;
 
         CurrentDraggedItem = null;
 
