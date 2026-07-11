@@ -8,11 +8,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [Header("Game Manager References")]
+    [SerializeField] private CanvasGroup startScreen;
     [SerializeField] private CanvasGroup requestScreen;
     [SerializeField] private CanvasGroup assemblerScreen;
     [SerializeField] private CanvasGroup assemblerGameScreen;
     [SerializeField] private CanvasGroup resultsScreen;
     [SerializeField] private CanvasGroup failureScreen;
+    [SerializeField] private StartScreenManager startScreenManager;
     [SerializeField] private AssemblerGameManager assemblerGameManager;
     [SerializeField] private ResultScreenManager resultScreenManager;
 
@@ -35,11 +37,19 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
-        SetCanvasGroup(requestScreen, true);
+        SetCanvasGroup(startScreen, false);
+        SetCanvasGroup(requestScreen, false);
         SetCanvasGroup(assemblerScreen, false);
         SetCanvasGroup(assemblerGameScreen, false);
         SetCanvasGroup(resultsScreen, false);
         SetCanvasGroup(failureScreen, false);
+
+        startScreenManager.ResetStartScreen();
+    }
+
+    private void Start()
+    {
+        startScreenManager.InitializeStartScreen();
     }
     #endregion
 
