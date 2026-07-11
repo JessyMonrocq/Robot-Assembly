@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Manager References")]
     [SerializeField] private CanvasGroup startScreen;
+    [SerializeField] private CanvasGroup menuScreen;
     [SerializeField] private CanvasGroup requestScreen;
     [SerializeField] private CanvasGroup assemblerScreen;
     [SerializeField] private CanvasGroup assemblerGameScreen;
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
         }
 
         SetCanvasGroup(startScreen, false);
+        SetCanvasGroup(menuScreen, false);
         SetCanvasGroup(requestScreen, false);
         SetCanvasGroup(assemblerScreen, false);
         SetCanvasGroup(assemblerGameScreen, false);
@@ -75,6 +77,16 @@ public class GameManager : MonoBehaviour
     public void ReturnToRequestScreen(CanvasGroup cg)
     {
         TransitionBetweenScreens(cg, requestScreen);
+    }
+
+    public void GoToMenu(CanvasGroup cg)
+    {
+        TransitionBetweenScreens(cg, menuScreen);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
     #endregion
 

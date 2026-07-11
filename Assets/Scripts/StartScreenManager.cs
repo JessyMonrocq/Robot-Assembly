@@ -82,6 +82,6 @@ public class StartScreenManager : MonoBehaviour
             screenLayoutDuration)
         .SetEase(screenLayoutEase).WaitForCompletion();
         yield return new WaitForSeconds(screenLayoutDelay);
-        GameManager.Instance.ReturnToRequestScreen(screenCG);
+        GameManager.Instance.GoToMenu(screenCG);
     }
 }

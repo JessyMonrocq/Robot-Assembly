@@ -21,9 +21,15 @@ ShaderVariantCollection:
         passType: 0
       - keywords: DETAIL_MASKING
         passType: 0
+      - keywords: DETAIL_MASKING EDGE_PLAIN
+        passType: 0
       - keywords: EDGE_PLAIN
         passType: 0
       - keywords: EDGE_PLAIN GRADATION_COLOR2
+        passType: 0
+      - keywords: EDGE_PLAIN SAMPLING_BLUR_DETAIL
+        passType: 0
+      - keywords: EDGE_PLAIN SAMPLING_BLUR_FAST
         passType: 0
       - keywords: EDGE_PLAIN TRANSITION_FADE
         passType: 0

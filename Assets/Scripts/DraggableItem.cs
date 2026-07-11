@@ -18,6 +18,7 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private float destroySpeed = 0.05f;
     [SerializeField] private Ease destroyEase = Ease.Flash;
     [SerializeField] private bool destroyOnRelease;
+    [SerializeField] private bool centerOnRelease = true;
 
     [Header("Robot Part Reference")]
     [SerializeField] private RobotPartsListSO robotPartsListSO;
@@ -127,7 +128,10 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         transform.SetParent(startParent);
         itemImage.raycastTarget = true;
         rectTransform.DOKill();
-        rectTransform.DOAnchorPos(Vector2.zero, followSpeed);
+        if (centerOnRelease)
+        {
+            rectTransform.DOAnchorPos(Vector2.zero, followSpeed);
+        }
     }
     #endregion
 
@@ -148,6 +152,12 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void SetDraggable(bool value)
     {
         canDrag = value;
+    }
+
+    public void Recenter()
+    {
+        rectTransform.DOKill();
+        rectTransform.DOAnchorPos(Vector2.zero, followSpeed);
     }
     #endregion
 
