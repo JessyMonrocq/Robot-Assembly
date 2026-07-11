@@ -21,4 +21,4 @@ MonoBehaviour:
     Weight: 0
   Chrono:
     minutes: 1
-    seconds: 0
+    seconds: 30
