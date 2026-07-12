@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Request - Hard 01
   m_EditorClassIdentifier: Assembly-CSharp::RequestSO
   RequestStats:
-    Armor: 20
+    Armor: 16
     Mobility: 0
-    Strength: 20
+    Strength: 18
     Computing: 0
     Energy: 0
-    Weight: 24
+    Weight: 26
   Chrono:
-    minutes: 1
-    seconds: 30
+    minutes: 0
+    seconds: 0

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Request - Easy 07
   m_EditorClassIdentifier: Assembly-CSharp::RequestSO
   RequestStats:
-    Armor: 12
-    Mobility: 12
+    Armor: 0
+    Mobility: 16
     Strength: 0
     Computing: 0
-    Energy: 0
+    Energy: 20
     Weight: 0
   Chrono:
-    minutes: 1
-    seconds: 30
+    minutes: 0
+    seconds: 0

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Request - Medium 03
   m_EditorClassIdentifier: Assembly-CSharp::RequestSO
   RequestStats:
-    Armor: 16
-    Mobility: 10
-    Strength: 14
-    Computing: 0
+    Armor: 0
+    Mobility: 0
+    Strength: 0
+    Computing: 15
     Energy: 0
-    Weight: 0
+    Weight: 12
   Chrono:
-    minutes: 1
-    seconds: 30
+    minutes: 0
+    seconds: 0

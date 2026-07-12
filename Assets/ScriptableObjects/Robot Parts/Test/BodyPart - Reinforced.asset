@@ -19,7 +19,7 @@ MonoBehaviour:
   ImageTint: {r: 0.72156864, g: 0.99215686, b: 0.7058824, a: 1}
   Stats:
     Armor: 7
-    Mobility: -2
+    Mobility: -1
     Strength: 2
     Computing: 0
     Energy: 3

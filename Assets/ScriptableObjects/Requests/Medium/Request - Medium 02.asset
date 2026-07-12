@@ -16,9 +16,9 @@ MonoBehaviour:
     Armor: 14
     Mobility: 0
     Strength: 15
-    Computing: 0
+    Computing: 4
     Energy: 0
     Weight: 22
   Chrono:
-    minutes: 1
-    seconds: 30
+    minutes: 0
+    seconds: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Request - Easy 02
   m_EditorClassIdentifier: Assembly-CSharp::RequestSO
   RequestStats:
-    Armor: 12
+    Armor: 16
     Mobility: 0
     Strength: 0
     Computing: 0

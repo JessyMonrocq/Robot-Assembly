@@ -18,7 +18,7 @@ MonoBehaviour:
     Strength: 12
     Computing: 0
     Energy: 0
-    Weight: 0
+    Weight: 16
   Chrono:
     minutes: 0
     seconds: 0

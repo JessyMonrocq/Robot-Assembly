@@ -35,6 +35,8 @@ ShaderVariantCollection:
         passType: 0
       - keywords: EDGE_PLAIN TRANSITION_PATTERN
         passType: 0
+      - keywords: EDGE_PLAIN UNITY_UI_ALPHACLIP
+        passType: 0
       - keywords: EDGE_SHINY
         passType: 0
       - keywords: EDGE_SHINY SAMPLING_EDGE_ALPHA

@@ -15,10 +15,10 @@ MonoBehaviour:
   RequestStats:
     Armor: 0
     Mobility: 0
-    Strength: 12
+    Strength: 0
     Computing: 0
-    Energy: 0
-    Weight: 18
+    Energy: 8
+    Weight: 12
   Chrono:
-    minutes: 1
-    seconds: 30
+    minutes: 0
+    seconds: 0

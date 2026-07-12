@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RequestSO
   RequestStats:
     Armor: 0
-    Mobility: 12
+    Mobility: 10
     Strength: 0
-    Computing: 14
-    Energy: 16
-    Weight: 0
+    Computing: 12
+    Energy: 18
+    Weight: 10
   Chrono:
     minutes: 0
     seconds: 0
