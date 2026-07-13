@@ -1,10 +1,10 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RequestsScreenManager : MonoBehaviour
 {
+    [Header("Requests Screen Manager References")]
     [SerializeField] private CanvasGroup categoriesCG;
     [SerializeField] private CanvasGroup requestsListCG;
     [SerializeField] private CanvasGroup requestCG;

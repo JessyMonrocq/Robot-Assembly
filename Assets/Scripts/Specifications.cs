@@ -34,8 +34,8 @@ public class Specifications : MonoBehaviour
         float strengthSlider = requiredStatistics.Strength > 0f ? Mathf.Clamp01(robotStatistics.Strength / requiredStatistics.Strength) : 0f;
         float computingSlider = requiredStatistics.Computing > 0f ? Mathf.Clamp01(robotStatistics.Computing / requiredStatistics.Computing) : 0f;
 
-        float energySlider = requiredStatistics.Energy > 0f ? Mathf.Clamp01(1f - (robotStatistics.Energy / requiredStatistics.Energy)) : 0f;
-        float weightSlider = requiredStatistics.Weight > 0f ? Mathf.Clamp01(1f - (robotStatistics.Weight / requiredStatistics.Weight)) : 0f;
+        float energySlider = requiredStatistics.Energy > 0f ? Mathf.Clamp01(2f - (robotStatistics.Energy / requiredStatistics.Energy)) : 0f;
+        float weightSlider = requiredStatistics.Weight > 0f ? Mathf.Clamp01(2f - (robotStatistics.Weight / requiredStatistics.Weight)) : 0f;
 
         armorStatDisplay.SetStatDisplayValues(armorSlider, robotStatistics.Armor, requiredStatistics.Armor, requiredStatistics.Armor > 0);
         mobilityStatDisplay.SetStatDisplayValues(mobilitySlider, robotStatistics.Mobility, requiredStatistics.Mobility, requiredStatistics.Mobility > 0);
@@ -86,7 +86,15 @@ public class Specifications : MonoBehaviour
         }
         else
         {
-            ratio = 1f - (current / required);
+            if (current <= required)
+            {
+                ratio = 1f;
+            }
+            else
+            {
+                float overflowFactor = current / required;
+                ratio = 2f - overflowFactor;
+            }
         }
 
         ratio = Mathf.Clamp01(ratio);

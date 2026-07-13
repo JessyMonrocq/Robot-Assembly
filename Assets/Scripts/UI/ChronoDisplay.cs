@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ChronoDisplay : MonoBehaviour
 {
+    #region Inspector Fields
     public event Action OnChronoEnded;
 
     [SerializeField] private Slider chronoSlider;
@@ -22,7 +23,9 @@ public class ChronoDisplay : MonoBehaviour
 
     private float timer;
     private bool paused;
+    #endregion
 
+    #region Unity Methods
     private void Awake()
     {
         ResetChrono();
@@ -58,7 +61,9 @@ public class ChronoDisplay : MonoBehaviour
             paused = true;
         }
     }
+    #endregion
 
+    #region Public Methods
     public void ResetChrono()
     {
         paused = true;
@@ -85,10 +90,13 @@ public class ChronoDisplay : MonoBehaviour
         currentChrono.SetTimeFromFloat(timer);
         StartCoroutine(ChronoDelayCoroutine(delayTime));
     }
+    #endregion
 
+    #region Coroutine Methods
     private IEnumerator ChronoDelayCoroutine(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
         paused = false;
     }
+    #endregion
 }
