@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CanvasGroup resultsScreen;
     [SerializeField] private CanvasGroup failureScreen;
     [SerializeField] private StartScreenManager startScreenManager;
+    [SerializeField] private RequestsScreenManager requestsScreenManager;
     [SerializeField] private AssemblerGameManager assemblerGameManager;
     [SerializeField] private ResultScreenManager resultScreenManager;
 
@@ -74,8 +75,9 @@ public class GameManager : MonoBehaviour
         TransitionBetweenScreens(assemblerScreen, failureScreen);
     }
 
-    public void ReturnToRequestScreen(CanvasGroup cg)
+    public void GoToRequestScreen(CanvasGroup cg)
     {
+        requestsScreenManager.InitializeRequestsScreenManager();
         TransitionBetweenScreens(cg, requestScreen);
     }
 
@@ -88,17 +90,15 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
-    #endregion
 
-    #region Private Methods
-    private void SetCanvasGroup(CanvasGroup cg, bool enabled)
+    public void SetCanvasGroup(CanvasGroup cg, bool enabled)
     {
         cg.alpha = enabled ? 1f : 0f;
         cg.interactable = enabled ? true : false;
         cg.blocksRaycasts = enabled ? true : false;
     }
 
-    private void TransitionBetweenScreens(CanvasGroup firstScreen, CanvasGroup newScreen)
+    public void TransitionBetweenScreens(CanvasGroup firstScreen, CanvasGroup newScreen)
     {
         StartCoroutine(TransitionCoroutine(firstScreen, newScreen));
     }

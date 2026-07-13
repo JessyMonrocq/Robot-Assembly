@@ -3,13 +3,17 @@ using UnityEngine;
 
 public class RequestTicket : MonoBehaviour
 {
-    [SerializeField] private RequestSO requestSO;
     [SerializeField] private StatisticsDisplay statisticsDisplay;
+    [SerializeField] private TextMeshProUGUI requestTitle;
     [SerializeField] private TextMeshProUGUI chronoText;
 
-    private void Awake()
+    private RequestSO requestSO;
+
+    public void InitializeRequestTicket(RequestSO requestSO)
     {
+        this.requestSO = requestSO;
         statisticsDisplay.SetStatistics(requestSO.RequestStats);
+        requestTitle.text = requestSO.name.ToString();
         chronoText.text = requestSO.Chrono.ToString();
     }
 

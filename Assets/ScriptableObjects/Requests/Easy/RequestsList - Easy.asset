@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97c059b22a071944d82b233c5d41ac17, type: 3}
+  m_Name: RequestsList - Easy
+  m_EditorClassIdentifier: Assembly-CSharp::RequestsListSO
+  RequestList:
+  - {fileID: 11400000, guid: 38557852a291ce645a19fb2283517bca, type: 2}
+  - {fileID: 11400000, guid: 843b8cab1abe3ed41addb833bb3df1be, type: 2}
+  - {fileID: 11400000, guid: 24f3584ffcc4f1b4fb83385281831aa7, type: 2}
+  - {fileID: 11400000, guid: 81f06ca29d4dff74d972021051a501a6, type: 2}
+  - {fileID: 11400000, guid: c409c9ff52305a04e98a561b3e5ef470, type: 2}
+  - {fileID: 11400000, guid: 26140886f05489245bc0acc30bab32f0, type: 2}
+  - {fileID: 11400000, guid: 1ff11b0f45dd5b44aa277626bcff0193, type: 2}
+  - {fileID: 11400000, guid: 282dca3a62794b04f868d83ab6379320, type: 2}

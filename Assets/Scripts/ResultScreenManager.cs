@@ -32,7 +32,7 @@ public class ResultScreenManager : MonoBehaviour
 
     public void BackToMenu()
     {
-        GameManager.Instance.ReturnToRequestScreen(GetComponent<CanvasGroup>());
+        GameManager.Instance.GoToRequestScreen(GetComponent<CanvasGroup>());
     }
     #endregion
 
