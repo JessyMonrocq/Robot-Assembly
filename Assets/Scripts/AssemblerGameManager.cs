@@ -54,7 +54,7 @@ public class AssemblerGameManager : MonoBehaviour
     public void DisplayRobotResults()
     {
         chronoDisplay.ResetChrono();
-        GameManager.Instance.DisplayResultScreen(specifications.CreateRobotResult());
+        GameManager.Instance.DisplayResultScreen(specifications.CreateRobotResult(), true);
     }
 
     public void SetRequestedStatistics(RobotStatistics statistics)
@@ -75,6 +75,11 @@ public class AssemblerGameManager : MonoBehaviour
 
         chronoDisplay.InitializeChrono(chrono, chronoDelay);
     }
+
+    public void InterruptGame()
+    {
+        GameManager.Instance.DisplayResultScreen(null, false);
+    }
     #endregion
 
     #region Private Methods
@@ -83,11 +88,6 @@ public class AssemblerGameManager : MonoBehaviour
         backgroundBlurCG.DOFade(0, animationDuration).SetEase(animationEase).OnComplete(() =>
             backgroundBlurCG.gameObject.SetActive(false)
         );
-    }
-
-    private void InterruptGame()
-    {
-        GameManager.Instance.DisplayFailureScreen();
     }
     #endregion
 }

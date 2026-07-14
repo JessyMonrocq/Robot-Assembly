@@ -9,6 +9,8 @@ public class ResultScreenManager : MonoBehaviour
     [Header("Result Screen Manager References")]
     [SerializeField] private SatisfactionLevelDisplay satisfactionLevelDisplayPrefab;
     [SerializeField] private Transform satisfactionLevelsParent;
+    [SerializeField] private GameObject resultPanel;
+    [SerializeField] private GameObject failurePanel;
     [SerializeField] private CanvasGroup finalScoreCG;
     [SerializeField] private Image finalScoreImage;
     [SerializeField] private TextMeshProUGUI finalScoreComment;
@@ -26,8 +28,17 @@ public class ResultScreenManager : MonoBehaviour
     #region Public Methods
     public void SetResultStatistics(RobotResult result)
     {
+        failurePanel.SetActive(false);
+        resultPanel.SetActive(true);
+
         robotResult = result;
         HandleResultScreen();
+    }
+
+    public void DisplayFailureScreen()
+    {
+        failurePanel.SetActive(true);
+        resultPanel.SetActive(false);
     }
 
     public void BackToMenu()
