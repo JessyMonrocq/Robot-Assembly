@@ -15,9 +15,16 @@ public class Socket : MonoBehaviour, IDropHandler
     public event Action<GameObject> OnSocketed;
     public event Action<GameObject> OnRemoved;
 
+    public bool CanSocket
+    {
+        get { return canSocket; }
+        set { canSocket = value; }
+    }
+
     private RectTransform rectTransform;
     private GameObject socketedObject;
     private bool isHighlighted;
+    private bool canSocket = true;
     #endregion
 
     #region Unity Methods
@@ -46,7 +53,7 @@ public class Socket : MonoBehaviour, IDropHandler
             currentDragged = DragItem.CurrentDraggedItem.gameObject;
         }
 
-        if (currentDragged != null && CompatibilityCheck(currentDragged))
+        if (currentDragged != null && canSocket && CompatibilityCheck(currentDragged))
         {
             var draggedRect = currentDragged.GetComponent<RectTransform>();
             if (draggedRect != null && RectOverlap.IsOverlapping(draggedRect, rectTransform) && !isHighlighted)
@@ -72,6 +79,11 @@ public class Socket : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
+        if (!canSocket)
+        {
+            return;
+        }
+
         GameObject dropped = eventData.pointerDrag;
 
         if (dropped == null)

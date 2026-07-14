@@ -40,7 +40,7 @@ public class SwitchButton : MonoBehaviour
     private void ButtonSwitch()
     {
         isOn = !isOn;
-        switchImage.localScale = isOn ? Vector3.zero : new Vector3(1, -1, 1);
+        switchImage.localScale = isOn ? Vector3.one : new Vector3(1, -1, 1);
 
         OnSwitch?.Invoke(isOn);
     }

@@ -21,7 +21,7 @@ public class DraggableLever : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     [SerializeField] private bool resetToZero = false;
     [SerializeField] private float releaseSpeed = 0.2f;
     [SerializeField] private Ease releaseEase = Ease.OutQuad;
-    [SerializeField, Range(0.9f, 1f)] private float snapToOneThreshold = 0.98f;
+    [SerializeField, Range(0.5f, 1f)] private float snapToOneThreshold = 0.98f;
 
     [Header("Slider Value")]
     [SerializeField, Range(0f, 1f)] private float initialValue = 0f;
