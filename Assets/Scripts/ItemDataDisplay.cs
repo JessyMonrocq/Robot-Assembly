@@ -1,5 +1,4 @@
 using DG.Tweening;
-using TMPro;
 using UnityEngine;
 
 public class ItemDataDisplay : MonoBehaviour
@@ -21,12 +20,12 @@ public class ItemDataDisplay : MonoBehaviour
 
     private void OnEnable()
     {
-        DraggableItem.OnItemHover += UpdateItemDataDisplay;
+        RobotDraggable.OnItemHover += UpdateItemDataDisplay;
     }
 
     private void OnDisable()
     {
-        DraggableItem.OnItemHover -= UpdateItemDataDisplay;
+        RobotDraggable.OnItemHover -= UpdateItemDataDisplay;
     }
 
     public void UpdateItemDataDisplay(RobotStatistics stats)

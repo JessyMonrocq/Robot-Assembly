@@ -1,4 +1,5 @@
 using DG.Tweening;
+using EasyTextEffects.Editor.MyBoxCopy.Extensions;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -18,9 +19,14 @@ public class ScrewButton : MonoBehaviour
     [SerializeField] private float timeToDestroy;
     [SerializeField] private float detachForce;
 
+    private Vector3 originPos;
+
     private void Awake()
     {
         rb.simulated = false;
+        button.image.SetAlpha(1f);
+
+        originPos = transform.localPosition;
     }
 
     private void OnEnable()
@@ -31,6 +37,15 @@ public class ScrewButton : MonoBehaviour
     private void OnDisable()
     {
         button.onClick.RemoveListener(Unscrew);
+    }
+
+    public void ResetScrewButton()
+    {
+        rb.simulated = false;
+        button.interactable = true;
+        button.image.SetAlpha(1f);
+        transform.localPosition = originPos;
+        transform.localRotation = Quaternion.identity;
     }
 
     private void Unscrew()
@@ -52,6 +67,7 @@ public class ScrewButton : MonoBehaviour
         OnUnscrewed?.Invoke();
 
         yield return new WaitForSeconds(timeToDestroy);
-        Destroy(this.gameObject);
+        rb.simulated = false;
+        button.image.SetAlpha(0f);
     }
 }

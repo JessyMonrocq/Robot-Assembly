@@ -1,8 +1,6 @@
-using System.ComponentModel;
 using UnityEditor;
-using UnityEngine;
 
-[CustomEditor(typeof(DraggableItem))]
+[CustomEditor(typeof(RobotDraggable))]
 public class DraggableItemEditor : Editor
 {
     SerializedProperty robotPartsListProperty;

@@ -88,5 +88,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e216a938bc6c39419543570c0ae4a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSelector
-  itemPrefab: {fileID: 5574795241170010782, guid: 2d2b3231a7033ab43888cff1ac957ae0, type: 3}
+  itemPrefab: {fileID: 6019333019144829537, guid: 62ea7db6c5cc12f43951f3806a0f1c3f, type: 3}
   assignedRobotPart: {fileID: 11400000, guid: 4290ac5d52e4c5949bc13516a2ff642e, type: 2}

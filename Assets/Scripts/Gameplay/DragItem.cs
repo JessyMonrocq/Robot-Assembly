@@ -3,14 +3,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections;
-using System;
 using Coffee.UIEffects;
 
-public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DragItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     #region Inspector Fields
-    public static event Action<RobotStatistics> OnItemHover;
-
     [Header("Draggable Item Settings")]
     [SerializeField] private Image itemImage;
     [SerializeField] private UIEffect itemEffect;
@@ -20,13 +17,8 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private bool destroyOnRelease;
     [SerializeField] private bool centerOnRelease = true;
 
-    [Header("Robot Part Reference")]
-    [SerializeField] private RobotPartsListSO robotPartsListSO;
-    [SerializeField] private RobotPartSO assignedRobotPart;
+    public static DragItem CurrentDraggedItem { get; private set; }
 
-    public static DraggableItem CurrentDraggedItem { get; private set; }
-
-    public RobotPartSO RobotPartSO => assignedRobotPart;
     public RectTransform RectTransform => rectTransform;
 
     private RectTransform rectTransform;
@@ -60,12 +52,11 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     #region Event Methods
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (DraggableItem.CurrentDraggedItem != null || !canDrag)
+        if (DragItem.CurrentDraggedItem != null || !canDrag)
         {
             return;
         }
         itemEffect.edgeMode = EdgeMode.Plain;
-        OnItemHover?.Invoke(assignedRobotPart.Stats);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -109,10 +100,10 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (destroyOnRelease && !socketDetected)
         {
-            ItemSocket socket = startParent?.GetComponent<ItemSocket>();
+            Socket socket = startParent?.GetComponent<Socket>();
             if (socket != null)
             {
-                socket.RemoveItem(destroy:false);
+                socket.RemoveItem(destroy: false);
             }
 
             CurrentDraggedItem = null;
@@ -140,13 +131,6 @@ public class DraggableItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         startParent = parent;
         socketDetected = true;
-    }
-
-    public void SetAssignedRobotPart(RobotPartSO robotPart)
-    {
-        assignedRobotPart = robotPart;
-        itemImage.sprite = robotPart.PartImage;
-        itemImage.color = robotPart.ImageTint;
     }
 
     public void SetDraggable(bool value)

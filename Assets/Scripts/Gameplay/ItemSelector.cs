@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class ItemSelector : MonoBehaviour
 {
-    [SerializeField] private DraggableItem itemPrefab;
+    [SerializeField] private DragItem itemPrefab;
     [SerializeField] private RobotPartSO assignedRobotPart;
 
-    DraggableItem currentItem;
+    DragItem currentItem;
 
     private void Awake()
     {
@@ -14,7 +14,7 @@ public class ItemSelector : MonoBehaviour
 
     private void Update()
     {
-        if (DraggableItem.CurrentDraggedItem != null && DraggableItem.CurrentDraggedItem == currentItem)
+        if (DragItem.CurrentDraggedItem != null && DragItem.CurrentDraggedItem == currentItem)
         {
             InitializeNewItem();
         }
@@ -25,7 +25,7 @@ public class ItemSelector : MonoBehaviour
         assignedRobotPart = robotPart;
         if (currentItem != null)
         {
-            currentItem.SetAssignedRobotPart(assignedRobotPart);
+            currentItem.GetComponent<RobotDraggable>().SetAssignedRobotPart(assignedRobotPart);
         }
     }
 
@@ -36,6 +36,6 @@ public class ItemSelector : MonoBehaviour
         currentItem = Instantiate(itemPrefab, transform.position, Quaternion.identity, transform);
         currentItem.transform.SetParent(transform);
         currentItem.transform.localPosition = Vector3.zero;
-        currentItem.SetAssignedRobotPart(assignedRobotPart);
+        currentItem.GetComponent<RobotDraggable>().SetAssignedRobotPart(assignedRobotPart);
     }
 }

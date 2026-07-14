@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SwitchButton : MonoBehaviour
 {
+    public event Action<bool> OnSwitch;
+
     [SerializeField] private Button button;
     [SerializeField] private RectTransform switchImage;
 
@@ -10,8 +13,7 @@ public class SwitchButton : MonoBehaviour
 
     private void Awake()
     {
-        isOn = false;
-        switchImage.localRotation = new Quaternion(0, 0, 180, 0);
+        ResetSwitchButton();
     }
 
     private void OnEnable()
@@ -24,9 +26,22 @@ public class SwitchButton : MonoBehaviour
         button.onClick.RemoveListener(ButtonSwitch);
     }
 
+    public void ResetSwitchButton()
+    {
+        isOn = false;
+        switchImage.localScale = new Vector3(1, -1, 1);
+    }
+
+    public void CanInteract(bool state)
+    {
+        button.interactable = state;
+    }
+
     private void ButtonSwitch()
     {
         isOn = !isOn;
-        switchImage.localRotation = isOn ? new Quaternion(0, 0, 180, 0) : Quaternion.identity;
+        switchImage.localScale = isOn ? Vector3.zero : new Vector3(1, -1, 1);
+
+        OnSwitch?.Invoke(isOn);
     }
 }
