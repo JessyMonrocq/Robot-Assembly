@@ -5,44 +5,40 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BatterySocket : MonoBehaviour, IDropHandler
+public class PartSocket : MonoBehaviour, IDropHandler
 {
     #region Inspector Fields
-    public event Action OnBatteryInserted;
+    public event Action<RobotPartSO> OnItemSocketed;
+    public event Action<RobotPartSO> OnItemRemoved;
 
+    [SerializeField] private bool useSocketKey = true;
     [SerializeField] private Image socketImage;
+    [SerializeField] private RobotPartSO.RobotPartType socketType;
 
     private RectTransform rectTransform;
-    private DraggableBattery socketedBattery;
+    private DraggableParts socketedItem;
     private bool isHighlighted;
-    private bool canHighlight;
     #endregion
 
     #region Unity Methods
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        socketedBattery = null;
+        socketedItem = null;
         isHighlighted = false;
-        canHighlight = true;
     }
 
     private void Update()
     {
-        if (!canHighlight)
+        if (DraggableParts.CurrentDraggedItem != null && DraggableParts.CurrentDraggedItem.RobotPartSO.PartType == socketType)
         {
-            return;
-        }
-
-        if (DraggableBattery.CurrentDraggedBattery != null)
-        {
-            if (RectOverlap.IsOverlapping(DraggableBattery.CurrentDraggedBattery.RectTransform, rectTransform) && !isHighlighted)
+            if (RectOverlap.IsOverlapping(DraggableParts.CurrentDraggedItem.RectTransform, rectTransform) && !isHighlighted)
             {
                 isHighlighted = true;
                 socketImage.rectTransform.DOKill();
                 socketImage.rectTransform.DOScale(Vector3.one * 1.1f, 0.2f).SetEase(Ease.OutBack);
             }
-            else if (!RectOverlap.IsOverlapping(DraggableBattery.CurrentDraggedBattery.RectTransform, rectTransform) && isHighlighted)
+            else if (!RectOverlap.IsOverlapping(DraggableParts.CurrentDraggedItem.RectTransform, rectTransform) && isHighlighted)
             {
                 isHighlighted = false;
                 socketImage.rectTransform.DOKill();
@@ -60,11 +56,17 @@ public class BatterySocket : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         GameObject droppedItem = eventData.pointerDrag;
-        if (droppedItem.TryGetComponent<DraggableBattery>(out DraggableBattery item))
+        if (droppedItem.TryGetComponent<DraggableParts>(out DraggableParts item))
         {
-            if (item != null && socketedBattery == null && item.CanDrag)
+            if (item.RobotPartSO.PartType == socketType || !useSocketKey)
             {
-                socketedBattery = item;
+                if (socketedItem != null && socketedItem != item)
+                {
+                    Destroy(socketedItem.gameObject);
+                    socketedItem = null;
+                }
+
+                socketedItem = item;
                 StartCoroutine(SocketItemCoroutine());
             }
         }
@@ -74,40 +76,41 @@ public class BatterySocket : MonoBehaviour, IDropHandler
     #region Public Methods
     public void InitializeSocket()
     {
-        if (socketedBattery != null)
+        if (socketedItem != null)
         {
-            Destroy(socketedBattery.gameObject);
+            Destroy(socketedItem.gameObject);
         }
 
-        socketedBattery = null;
+        socketedItem = null;
         isHighlighted = false;
 
         socketImage.rectTransform.DOKill();
         socketImage.rectTransform.localScale = Vector3.one;
     }
 
-    public void ResetSocket()
+    public void RemoveItem(bool destroy)
     {
-        if (socketedBattery != null)
+        if (socketedItem != null)
         {
-            Destroy(socketedBattery.gameObject);
-            socketedBattery = null;
+            OnItemRemoved?.Invoke(socketedItem.RobotPartSO);
+            if (destroy)
+            {
+                Destroy(socketedItem.gameObject);
+            }
+            socketedItem = null;
         }
-
-        canHighlight = true;
-        isHighlighted = false;
-        socketImage.rectTransform.DOKill();
     }
     #endregion
 
     #region Coroutine Methods
     private IEnumerator SocketItemCoroutine()
     {
-        socketedBattery.SetCurrentParent(transform);
+        socketedItem.SetDraggable(false);
+        socketedItem.SetCurrentParent(transform);
         isHighlighted = false;
         yield return socketImage.rectTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack).WaitForCompletion();
-        canHighlight = false;
-        OnBatteryInserted?.Invoke();
+        OnItemSocketed?.Invoke(socketedItem.RobotPartSO);
+        socketedItem.SetDraggable(true);
     }
     #endregion
 }

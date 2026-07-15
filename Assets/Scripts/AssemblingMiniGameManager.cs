@@ -4,9 +4,9 @@ public class AssemblingMiniGameManager : MonoBehaviour
 {
     [Header("Assebling Mini Game Manager References")]
     [SerializeField] private ScrewButton[] batteryPanelScrews;
-    [SerializeField] private Socket[] batterySockets;
+    [SerializeField] private BatterySocket[] batterySockets;
     [SerializeField] private Transform[] batteryParents;
-    [SerializeField] private DragItem batteryItemPrefab;
+    [SerializeField] private DraggableBattery batteryItemPrefab;
     [SerializeField] private SwitchButton[] switchButtons;
     [SerializeField] private DraggableLever batteryPanelSlider;
     [SerializeField] private DraggableLever finalLever;
@@ -27,12 +27,6 @@ public class AssemblingMiniGameManager : MonoBehaviour
             screw.OnUnscrewed += UpdateScrewCount;
         }
 
-        foreach (Socket socket in batterySockets)
-        {
-            socket.OnSocketed += UpdateBatteryAdded;
-            socket.OnRemoved += UpdateBatteryRemoved;
-        }
-
         foreach (SwitchButton switchButton in switchButtons)
         {
             switchButton.OnSwitch += UpdateSwitchButtonCount;
@@ -48,12 +42,6 @@ public class AssemblingMiniGameManager : MonoBehaviour
         foreach (ScrewButton screw in batteryPanelScrews)
         {
             screw.OnUnscrewed -= UpdateScrewCount;
-        }
-
-        foreach (Socket socket in batterySockets)
-        {
-            socket.OnSocketed -= UpdateBatteryAdded;
-            socket.OnRemoved -= UpdateBatteryRemoved;
         }
 
         foreach (SwitchButton switchButton in switchButtons)
@@ -76,7 +64,7 @@ public class AssemblingMiniGameManager : MonoBehaviour
         }
     }
 
-    private void UpdateBatteryAdded(GameObject battery)
+    private void UpdateBatteryAdded()
     {
         batteryCount++;
 
@@ -84,17 +72,7 @@ public class AssemblingMiniGameManager : MonoBehaviour
         {
             randomPassword = Random.Range(0, 10000).ToString("D4");
             keypadController.InitializeKeypad(randomPassword);
-
-            foreach (Socket socket in batterySockets)
-            {
-                socket.CanSocket = false;
-            }
         }
-    }
-
-    private void UpdateBatteryRemoved(GameObject battery)
-    {
-        batteryCount--;
     }
 
     private void UpdateSwitchButtonCount(bool isOn)
@@ -126,9 +104,10 @@ public class AssemblingMiniGameManager : MonoBehaviour
         {
             batteryPanelSlider.CanInteract = false;
 
-            foreach (Socket socket in batterySockets)
+            foreach (BatterySocket socket in batterySockets)
             {
-                socket.CanSocket = true;
+                socket.enabled = true;
+                socket.OnBatteryInserted += UpdateBatteryAdded;
             }
         }
     }
@@ -157,10 +136,11 @@ public class AssemblingMiniGameManager : MonoBehaviour
             screw.ResetScrewButton();
         }
 
-        foreach (Socket socket in batterySockets)
+        foreach (BatterySocket socket in batterySockets)
         {
-            socket.RemoveItem(true);
-            socket.CanSocket = false;
+            socket.ResetSocket();
+            socket.OnBatteryInserted -= UpdateBatteryAdded;
+            socket.enabled = false;
         }
 
         foreach (Transform parent in batteryParents)
@@ -170,8 +150,8 @@ public class AssemblingMiniGameManager : MonoBehaviour
                 Destroy(child.gameObject);
             }
 
-            DragItem item = Instantiate(batteryItemPrefab, parent);
-            item.transform.localPosition = Vector3.zero;
+            DraggableBattery battery = Instantiate(batteryItemPrefab, parent);
+            battery.transform.localPosition = Vector3.zero;
         }
 
         foreach (SwitchButton switchButton in switchButtons)

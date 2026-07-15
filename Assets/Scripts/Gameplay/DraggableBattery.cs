@@ -2,24 +2,22 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
-using System.Collections;
 using Coffee.UIEffects;
+using Unity.VisualScripting;
 
-public class DragItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DraggableBattery : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     #region Inspector Fields
-    [Header("Draggable Item Settings")]
+    [Header("Draggable Battery Settings")]
     [SerializeField] private Image itemImage;
     [SerializeField] private UIEffect itemEffect;
     [SerializeField] private float followSpeed = 0.1f;
-    [SerializeField] private float destroySpeed = 0.05f;
-    [SerializeField] private Ease destroyEase = Ease.Flash;
-    [SerializeField] private bool destroyOnRelease;
-    [SerializeField] private bool centerOnRelease = true;
 
-    public static DragItem CurrentDraggedItem { get; private set; }
+    public static DraggableBattery CurrentDraggedBattery { get; private set; }
 
     public RectTransform RectTransform => rectTransform;
+    public bool CanDrag => canDrag;
+
 
     private RectTransform rectTransform;
     private Canvas parentCanvas;
@@ -52,7 +50,7 @@ public class DragItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     #region Event Methods
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (DragItem.CurrentDraggedItem != null || !canDrag)
+        if (DraggableBattery.CurrentDraggedBattery != null || !canDrag)
         {
             return;
         }
@@ -78,7 +76,7 @@ public class DragItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         itemEffect.shadowMode = ShadowMode.Shadow;
 
-        CurrentDraggedItem = this;
+        CurrentDraggedBattery = this;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -103,32 +101,18 @@ public class DragItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             return;
         }
 
-        if (destroyOnRelease && !socketDetected)
-        {
-            Socket socket = startParent?.GetComponent<Socket>();
-            if (socket != null)
-            {
-                socket.RemoveItem(destroy: false);
-            }
-
-            CurrentDraggedItem = null;
-            DestroyItem();
-            return;
-        }
+        canDrag = false;
 
         itemEffect.shadowMode = ShadowMode.None;
 
-        CurrentDraggedItem = null;
+        CurrentDraggedBattery = null;
 
-        socketDetected = false;
         transform.SetParent(startParent);
         itemImage.raycastTarget = true;
         rectTransform.DOKill();
-
-        if (centerOnRelease)
-        {
-            rectTransform.DOAnchorPos(Vector2.zero, followSpeed);
-        }
+        rectTransform.DOAnchorPos(Vector2.zero, followSpeed).OnComplete(() =>
+            canDrag = !socketDetected
+        );
     }
     #endregion
 
@@ -142,54 +126,6 @@ public class DragItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void SetDraggable(bool value)
     {
         canDrag = value;
-    }
-
-    public Tween Recenter()
-    {
-        rectTransform.DOKill();
-        return rectTransform.DOAnchorPos(Vector2.zero, followSpeed).SetEase(Ease.OutBack);
-    }
-
-    public void FinishSocketing(bool enableDragAfter = true)
-    {
-        CurrentDraggedItem = null;
-
-        if (itemEffect != null) itemEffect.shadowMode = ShadowMode.None;
-
-        if (itemImage != null)
-        {
-            itemImage.raycastTarget = true;
-            itemImage.canvasRenderer.SetAlpha(1f);
-
-            itemImage.enabled = false;
-            itemImage.enabled = true;
-        }
-
-        Canvas.ForceUpdateCanvases();
-        if (parentCanvas != null)
-        {
-            var rt = parentCanvas.transform as RectTransform;
-            if (rt != null) UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(rt);
-        }
-
-        canDrag = enableDragAfter;
-        socketDetected = true;
-    }
-    #endregion
-
-    #region Private Methods
-    private void DestroyItem()
-    {
-        canDrag = false;
-        StartCoroutine(DestroyItemCoroutine());
-    }
-    #endregion
-
-    #region Coroutine Methods
-    private IEnumerator DestroyItemCoroutine()
-    {
-        yield return rectTransform.DOScale(0f, destroySpeed).SetEase(destroyEase).WaitForCompletion();
-        Destroy(gameObject);
     }
     #endregion
 }

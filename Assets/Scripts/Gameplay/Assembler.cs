@@ -9,13 +9,13 @@ public struct RobotPartData
 {
     public RobotPartSO.RobotPartType PartType;
     public RobotPartSO RobotPart;
-    public RobotSocket RobotSocket;
+    public PartSocket PartSocket;
 
-    public RobotPartData(RobotPartSO.RobotPartType partType, RobotPartSO robotPart, RobotSocket robotSocket)
+    public RobotPartData(RobotPartSO.RobotPartType partType, RobotPartSO robotPart, PartSocket partSocket)
     {
         PartType = partType;
         RobotPart = robotPart;
-        RobotSocket = robotSocket;
+        PartSocket = partSocket;
     }
 }
 
@@ -25,11 +25,11 @@ public class Assembler : MonoBehaviour
     public event Action<RobotStatistics> OnRobotStatisticsUpdated;
 
     [Header("Assembler References")]
-    [SerializeField] private RobotSocket headSocket;
-    [SerializeField] private RobotSocket bodySocket;
-    [SerializeField] private RobotSocket leftArmSocket;
-    [SerializeField] private RobotSocket rightArmSocket;
-    [SerializeField] private RobotSocket legsSocket;
+    [SerializeField] private PartSocket headSocket;
+    [SerializeField] private PartSocket bodySocket;
+    [SerializeField] private PartSocket leftArmSocket;
+    [SerializeField] private PartSocket rightArmSocket;
+    [SerializeField] private PartSocket legsSocket;
 
     [Header("Removal Settings")]
     [SerializeField] private float shakeDuration = 5f;
@@ -65,13 +65,13 @@ public class Assembler : MonoBehaviour
 
         foreach (RobotPartData item in robotPartsData)
         {
-            if (item.RobotSocket != null)
+            if (item.PartSocket != null)
             {
                 continue;
             }
 
-            item.RobotSocket.OnItemSocketed -= HandleItemSocketed;
-            item.RobotSocket.OnItemRemoved -= HandleItemRemoved;
+            item.PartSocket.OnItemSocketed -= HandleItemSocketed;
+            item.PartSocket.OnItemRemoved -= HandleItemRemoved;
         }
     }
     #endregion
@@ -87,10 +87,10 @@ public class Assembler : MonoBehaviour
 
         foreach (RobotPartData item in robotPartsData)
         {
-            item.RobotSocket.Socket.InitializeSocket();
+            item.PartSocket.InitializeSocket();
 
-            item.RobotSocket.OnItemSocketed += HandleItemSocketed;
-            item.RobotSocket.OnItemRemoved += HandleItemRemoved;
+            item.PartSocket.OnItemSocketed += HandleItemSocketed;
+            item.PartSocket.OnItemRemoved += HandleItemRemoved;
         }
 
         confirmAssemblyButton.interactable = false;
@@ -102,7 +102,7 @@ public class Assembler : MonoBehaviour
         for (int i = 0; i < robotPartsData.Length; i++)
         {
             robotPartsData[i].RobotPart = null;
-            robotPartsData[i].RobotSocket.Socket.RemoveItem(destroy: true);
+            robotPartsData[i].PartSocket.RemoveItem(destroy: true);
         }
         CalculateCurrentStatistics();
     }
@@ -228,7 +228,7 @@ public class Assembler : MonoBehaviour
         {
             if (item.RobotPart != null)
             {
-                item.RobotSocket.Socket.RemoveItem(destroy: true);
+                item.PartSocket.RemoveItem(destroy: true);
             }
         }
 

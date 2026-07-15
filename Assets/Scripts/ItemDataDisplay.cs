@@ -20,12 +20,12 @@ public class ItemDataDisplay : MonoBehaviour
 
     private void OnEnable()
     {
-        RobotDraggable.OnItemHover += UpdateItemDataDisplay;
+        DraggableParts.OnItemHover += UpdateItemDataDisplay;
     }
 
     private void OnDisable()
     {
-        RobotDraggable.OnItemHover -= UpdateItemDataDisplay;
+        DraggableParts.OnItemHover -= UpdateItemDataDisplay;
     }
 
     public void UpdateItemDataDisplay(RobotStatistics stats)

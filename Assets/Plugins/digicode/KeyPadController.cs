@@ -30,7 +30,10 @@ public class KeyPadController : MonoBehaviour
 
     public void ResetKeypad()
     {
+        codeCompleted = false;
+
         inputEntered.Clear();
+        truePassword.Clear();
         StopAllCoroutines();
 
         foreach (Button button in numberFolder.GetComponentsInChildren<Button>())
