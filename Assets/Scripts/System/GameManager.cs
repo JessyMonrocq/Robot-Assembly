@@ -12,17 +12,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CanvasGroup menuScreen;
     [SerializeField] private CanvasGroup requestScreen;
     [SerializeField] private CanvasGroup assemblerScreen;
-    [SerializeField] private CanvasGroup assemblerGameScreen;
+    [SerializeField] private CanvasGroup assemblerMiniGameScreen;
     [SerializeField] private CanvasGroup resultsScreen;
     [SerializeField] private StartScreenManager startScreenManager;
     [SerializeField] private RequestsScreenManager requestsScreenManager;
     [SerializeField] private AssemblerGameManager assemblerGameManager;
+    [SerializeField] private AssemblingMiniGameManager assemblerMiniGameManager;
     [SerializeField] private ResultScreenManager resultScreenManager;
 
     [SerializeField] private float transitionSpeed = 0.5f;
     [SerializeField] private float transitionDelay = 0.5f;
     [SerializeField] private float chronoDelay = 1f;
     [SerializeField] private Ease transitionEase;
+
+    private RobotResult currentRobotResult;
     #endregion
 
     #region Unity Methods
@@ -38,11 +41,13 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
+        currentRobotResult = null;
+
         SetCanvasGroup(startScreen, false);
         SetCanvasGroup(menuScreen, false);
         SetCanvasGroup(requestScreen, false);
         SetCanvasGroup(assemblerScreen, false);
-        SetCanvasGroup(assemblerGameScreen, false);
+        SetCanvasGroup(assemblerMiniGameScreen, false);
         SetCanvasGroup(resultsScreen, false);
 
         startScreenManager.ResetStartScreen();
@@ -62,17 +67,25 @@ public class GameManager : MonoBehaviour
         TransitionBetweenScreens(requestScreen, assemblerScreen);
     }
 
-    public void DisplayResultScreen(RobotResult results, bool success)
+    public void HandleRequestResults(RobotResult results, bool success)
     {
-        TransitionBetweenScreens(assemblerScreen, resultsScreen);
         if (success)
         {
-            resultScreenManager.SetResultStatistics(results);
+            TransitionBetweenScreens(assemblerScreen, assemblerMiniGameScreen);
+            assemblerMiniGameManager.InitializeMiniGame();
+            currentRobotResult = results;
         }
         else
         {
+            TransitionBetweenScreens(assemblerScreen, resultsScreen);
             resultScreenManager.DisplayFailureScreen();
         }
+    }
+
+    public void GoToResultScreen(CanvasGroup cg)
+    {
+        TransitionBetweenScreens(cg, resultsScreen);
+        resultScreenManager.SetResultStatistics(currentRobotResult);
     }
 
     public void GoToRequestScreen(CanvasGroup cg)
@@ -84,6 +97,12 @@ public class GameManager : MonoBehaviour
     public void GoToMenu(CanvasGroup cg)
     {
         TransitionBetweenScreens(cg, menuScreen);
+    }
+
+    public void GoToMinigame(CanvasGroup cg)
+    {
+        assemblerMiniGameManager.InitializeMiniGame();
+        TransitionBetweenScreens(cg, assemblerMiniGameScreen);
     }
 
     public void QuitGame()

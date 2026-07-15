@@ -98,6 +98,11 @@ public class DragItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (!canDrag)
+        {
+            return;
+        }
+
         if (destroyOnRelease && !socketDetected)
         {
             Socket socket = startParent?.GetComponent<Socket>();
@@ -119,6 +124,7 @@ public class DragItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         transform.SetParent(startParent);
         itemImage.raycastTarget = true;
         rectTransform.DOKill();
+
         if (centerOnRelease)
         {
             rectTransform.DOAnchorPos(Vector2.zero, followSpeed);
@@ -138,10 +144,36 @@ public class DragItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         canDrag = value;
     }
 
-    public void Recenter()
+    public Tween Recenter()
     {
         rectTransform.DOKill();
-        rectTransform.DOAnchorPos(Vector2.zero, followSpeed);
+        return rectTransform.DOAnchorPos(Vector2.zero, followSpeed).SetEase(Ease.OutBack);
+    }
+
+    public void FinishSocketing(bool enableDragAfter = true)
+    {
+        CurrentDraggedItem = null;
+
+        if (itemEffect != null) itemEffect.shadowMode = ShadowMode.None;
+
+        if (itemImage != null)
+        {
+            itemImage.raycastTarget = true;
+            itemImage.canvasRenderer.SetAlpha(1f);
+
+            itemImage.enabled = false;
+            itemImage.enabled = true;
+        }
+
+        Canvas.ForceUpdateCanvases();
+        if (parentCanvas != null)
+        {
+            var rt = parentCanvas.transform as RectTransform;
+            if (rt != null) UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(rt);
+        }
+
+        canDrag = enableDragAfter;
+        socketDetected = true;
     }
     #endregion
 

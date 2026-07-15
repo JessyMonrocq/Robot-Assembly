@@ -49,6 +49,11 @@ public class KeyPadController : MonoBehaviour
             truePassword.Add(c);
         }
 
+        foreach (Button button in numberFolder.GetComponentsInChildren<Button>())
+        {
+            button.interactable = true;
+        }
+
         placeholderTextField.text = newPassword;
     }
 

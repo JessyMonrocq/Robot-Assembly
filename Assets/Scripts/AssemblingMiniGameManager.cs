@@ -14,6 +14,7 @@ public class AssemblingMiniGameManager : MonoBehaviour
 
     private string randomPassword;
     private const int passwordLength = 4;
+    private bool minigameComplete;
 
     private int screwCount;
     private int batteryCount;
@@ -28,7 +29,8 @@ public class AssemblingMiniGameManager : MonoBehaviour
 
         foreach (Socket socket in batterySockets)
         {
-            socket.OnSocketed += UpdateBatteryCount;
+            socket.OnSocketed += UpdateBatteryAdded;
+            socket.OnRemoved += UpdateBatteryRemoved;
         }
 
         foreach (SwitchButton switchButton in switchButtons)
@@ -41,6 +43,29 @@ public class AssemblingMiniGameManager : MonoBehaviour
         keypadController.onCorrectpassword.AddListener(UpdateKeypadState);
     }
 
+    private void OnDisable()
+    {
+        foreach (ScrewButton screw in batteryPanelScrews)
+        {
+            screw.OnUnscrewed -= UpdateScrewCount;
+        }
+
+        foreach (Socket socket in batterySockets)
+        {
+            socket.OnSocketed -= UpdateBatteryAdded;
+            socket.OnRemoved -= UpdateBatteryRemoved;
+        }
+
+        foreach (SwitchButton switchButton in switchButtons)
+        {
+            switchButton.OnSwitch -= UpdateSwitchButtonCount;
+        }
+
+        batteryPanelSlider.OnValueChanged.RemoveAllListeners();
+        finalLever.OnValueChanged.RemoveAllListeners();
+        keypadController.onCorrectpassword.RemoveAllListeners();
+    }
+
     private void UpdateScrewCount()
     {
         screwCount++;
@@ -51,16 +76,25 @@ public class AssemblingMiniGameManager : MonoBehaviour
         }
     }
 
-    private void UpdateBatteryCount(GameObject battery)
+    private void UpdateBatteryAdded(GameObject battery)
     {
-        battery.GetComponent<DragItem>().SetDraggable(false);
         batteryCount++;
 
         if (batteryCount == batterySockets.Length)
         {
             randomPassword = Random.Range(0, 10000).ToString("D4");
             keypadController.InitializeKeypad(randomPassword);
+
+            foreach (Socket socket in batterySockets)
+            {
+                socket.CanSocket = false;
+            }
         }
+    }
+
+    private void UpdateBatteryRemoved(GameObject battery)
+    {
+        batteryCount--;
     }
 
     private void UpdateSwitchButtonCount(bool isOn)
@@ -88,35 +122,32 @@ public class AssemblingMiniGameManager : MonoBehaviour
 
     private void UpdatePanelSliderState(float value)
     {
-        if (value == 1f)
+        if (value == 1f && batteryPanelSlider.CanInteract)
         {
+            batteryPanelSlider.CanInteract = false;
+
             foreach (Socket socket in batterySockets)
             {
                 socket.CanSocket = true;
-            }
-        }
-        else
-        {
-            foreach (Socket socket in batterySockets)
-            {
-                socket.CanSocket = false;
             }
         }
     }
 
     private void UpdateFinalSliderState(float value)
     {
-        if (value == 1f)
+        if (value == 1f && !minigameComplete)
         {
+            minigameComplete = true;
             finalLever.CanInteract = false;
 
-            Debug.Log("Final Step complete");
-            // FINAL STEP COMPLETE
+            GameManager.Instance.GoToResultScreen(this.gameObject.GetComponent<CanvasGroup>());
         }
     }
 
     public void InitializeMiniGame()
     {
+        minigameComplete = false;
+
         screwCount = 0;
         batteryCount = 0;
         switchButtonCount = 0;
@@ -124,21 +155,19 @@ public class AssemblingMiniGameManager : MonoBehaviour
         foreach (ScrewButton screw in batteryPanelScrews)
         {
             screw.ResetScrewButton();
-            screwCount++;
         }
 
         foreach (Socket socket in batterySockets)
         {
             socket.RemoveItem(true);
             socket.CanSocket = false;
-            batteryCount++;
         }
 
         foreach (Transform parent in batteryParents)
         {
             foreach (Transform child in parent)
             {
-                Destroy(child);
+                Destroy(child.gameObject);
             }
 
             DragItem item = Instantiate(batteryItemPrefab, parent);
@@ -149,7 +178,6 @@ public class AssemblingMiniGameManager : MonoBehaviour
         {
             switchButton.ResetSwitchButton();
             switchButton.CanInteract(false);
-            switchButtonCount++;
         }
 
         batteryPanelSlider.SetCurrentValueImmediate(0f);

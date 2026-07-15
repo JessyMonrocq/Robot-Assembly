@@ -40,6 +40,8 @@ public class DraggableLever : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     private float desiredValue;
     private Tween valueTween;
 
+    private bool snapLocked = false;
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -64,7 +66,7 @@ public class DraggableLever : MonoBehaviour, IPointerDownHandler, IBeginDragHand
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (snapToPointerOnDown)
+        if (snapToPointerOnDown && canInteract)
         {
             UpdateDesiredFromPointer(eventData);
         }
@@ -89,11 +91,18 @@ public class DraggableLever : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         }
 
         UpdateDesiredFromPointer(eventData);
+
+        if (currentValue >= snapToOneThreshold)
+        {
+            snapLocked = true;
+            SetDesiredValue(1f, true);
+            ExecuteEvents.Execute(gameObject, eventData, ExecuteEvents.endDragHandler);
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (!canInteract)
+        if (!canInteract || snapLocked)
         {
             return;
         }
@@ -161,6 +170,11 @@ public class DraggableLever : MonoBehaviour, IPointerDownHandler, IBeginDragHand
             UpdateHandlePositionFromValue();
             OnValueChanged?.Invoke(currentValue);
             valueTween = null;
+
+            if (snapLocked)
+            {
+                snapLocked = false;
+            }
         });
     }
 

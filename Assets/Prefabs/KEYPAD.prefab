@@ -216,7 +216,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -100, y: 0}
+  m_SizeDelta: {x: -110, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5253896641754128701
 CanvasRenderer:
@@ -248,8 +248,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 198b9f71a728a324190063c2dab6a3d3, type: 2}
-  m_sharedMaterial: {fileID: 7978037608513682814, guid: 198b9f71a728a324190063c2dab6a3d3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 63334b6726615f24f900306dbc6d7098, type: 2}
+  m_sharedMaterial: {fileID: -2789111198017792976, guid: 63334b6726615f24f900306dbc6d7098, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -283,7 +283,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
-  m_characterSpacing: 50
+  m_characterSpacing: 73
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -306,7 +306,7 @@ MonoBehaviour:
   m_isCullingEnabled: 0
   m_horizontalMapping: 0
   m_verticalMapping: 0
-  m_uvLineOffset: 0
+  m_uvLineOffset: 2.32
   m_geometrySortingOrder: 0
   m_IsTextObjectScaleStatic: 0
   m_VertexBufferAutoSizeReduction: 0
@@ -712,7 +712,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 9
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2345,7 +2345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4292,7 +4292,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -100, y: 0}
+  m_SizeDelta: {x: -110, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6851613054602065938
 CanvasRenderer:
@@ -4324,8 +4324,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ____
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 198b9f71a728a324190063c2dab6a3d3, type: 2}
-  m_sharedMaterial: {fileID: 7978037608513682814, guid: 198b9f71a728a324190063c2dab6a3d3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1911d1b4074e1394290e17f61113db66, type: 2}
+  m_sharedMaterial: {fileID: 3507841718595804630, guid: 1911d1b4074e1394290e17f61113db66, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4359,7 +4359,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
-  m_characterSpacing: 50
+  m_characterSpacing: 73
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -6575,12 +6575,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa5b6363dd7bfe4281889b8cc78f948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass::KeyPadController
-  truePassword: 3900390039003900
+  truePassword: 
   inputTextField: {fileID: 4347716769410141969}
   placeholderTextField: {fileID: 1868574144955095273}
   resetTime: 1
-  successText: Valid
-  errorText: Error
+  successText: GOOD
+  errorText: FAIL
   defaultText: 
   letterFolder: {fileID: 444012601339056336}
   numberFolder: {fileID: 6694552437199476688}

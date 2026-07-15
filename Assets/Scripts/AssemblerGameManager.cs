@@ -54,7 +54,7 @@ public class AssemblerGameManager : MonoBehaviour
     public void DisplayRobotResults()
     {
         chronoDisplay.ResetChrono();
-        GameManager.Instance.DisplayResultScreen(specifications.CreateRobotResult(), true);
+        GameManager.Instance.HandleRequestResults(specifications.CreateRobotResult(), true);
     }
 
     public void SetRequestedStatistics(RobotStatistics statistics)
@@ -78,7 +78,7 @@ public class AssemblerGameManager : MonoBehaviour
 
     public void InterruptGame()
     {
-        GameManager.Instance.DisplayResultScreen(null, false);
+        GameManager.Instance.HandleRequestResults(null, false);
     }
     #endregion
 

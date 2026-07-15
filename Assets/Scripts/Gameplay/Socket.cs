@@ -9,6 +9,7 @@ public class Socket : MonoBehaviour, IDropHandler
 {
     #region Inspector Fields
     [SerializeField] private Image socketImage;
+    [SerializeField] private bool canReplace = true;
 
     public Func<GameObject, bool> CompatibilityCheck;
 
@@ -96,10 +97,14 @@ public class Socket : MonoBehaviour, IDropHandler
             return;
         }
 
-        if (socketedObject != null && socketedObject != dropped)
+        if (socketedObject != null && socketedObject != dropped && canReplace)
         {
             Destroy(socketedObject);
             socketedObject = null;
+        }
+        else if (socketedObject != null && socketedObject != dropped && !canReplace)
+        {
+            return;
         }
 
         socketedObject = dropped;
@@ -131,6 +136,14 @@ public class Socket : MonoBehaviour, IDropHandler
             {
                 Destroy(socketedObject);
             }
+            else
+            {
+                var drag = socketedObject.GetComponent<DragItem>();
+                if (drag != null)
+                {
+                    drag.SetDraggable(true);
+                }
+            }
             socketedObject = null;
         }
     }
@@ -141,34 +154,44 @@ public class Socket : MonoBehaviour, IDropHandler
     {
         if (socketedObject != null)
         {
-            var dragg = socketedObject.GetComponent<DragItem>();
-            if (dragg != null)
+            var drag = socketedObject.GetComponent<DragItem>();
+            if (drag != null)
             {
-                dragg.SetDraggable(false);
-                dragg.SetCurrentParent(transform);
+                drag.SetDraggable(false);
+                drag.SetCurrentParent(transform);
+
+                var rt = socketedObject.GetComponent<RectTransform>();
+                socketedObject.transform.SetParent(transform);
+                socketedObject.transform.localScale = Vector3.one;
+
+                var image = socketedObject.GetComponent<UnityEngine.UI.Image>();
+                if (image != null) image.raycastTarget = true;
+
+                yield return drag.Recenter().WaitForCompletion();
+
+                drag.FinishSocketing(enableDragAfter: true);
             }
             else
             {
-                var draggable = socketedObject.GetComponent<DragItem>();
-                if (draggable != null)
+                var robotDraggable = socketedObject.GetComponent<RobotDraggable>();
+                var rt = socketedObject.GetComponent<RectTransform>();
+                socketedObject.transform.SetParent(transform);
+                socketedObject.transform.localScale = Vector3.one;
+
+                if (rt != null)
                 {
-                    draggable.SetDraggable(false);
-                    draggable.SetCurrentParent(transform);
+                    rt.DOKill();
+                    yield return rt.DOAnchorPos(Vector2.zero, 0.2f).SetEase(Ease.OutBack).WaitForCompletion();
+                }
+                else
+                {
+                    socketedObject.transform.localPosition = Vector3.zero;
                 }
             }
 
             isHighlighted = false;
             yield return socketImage.rectTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack).WaitForCompletion();
             OnSocketed?.Invoke(socketedObject);
-
-            if (dragg != null)
-            {
-                dragg.SetDraggable(true);
-            }
-            else if (socketedObject.TryGetComponent<DragItem>(out var d))
-            {
-                d.SetDraggable(true);
-            }
         }
     }
     #endregion

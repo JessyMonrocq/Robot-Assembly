@@ -13,8 +13,44 @@ PrefabInstance:
       value: RobotItem
       objectReference: {fileID: 0}
     - target: {fileID: 3827005920158671541, guid: 40906214bac0d8c4cadf4a7a538568ec, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3827005920158671541, guid: 40906214bac0d8c4cadf4a7a538568ec, type: 3}
       propertyPath: destroyOnRelease
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582127076094991259, guid: 40906214bac0d8c4cadf4a7a538568ec, type: 3}
+      propertyPath: m_EdgeMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582127076094991259, guid: 40906214bac0d8c4cadf4a7a538568ec, type: 3}
+      propertyPath: m_ShadowMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582127076094991259, guid: 40906214bac0d8c4cadf4a7a538568ec, type: 3}
+      propertyPath: m_ShadowColor.b
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582127076094991259, guid: 40906214bac0d8c4cadf4a7a538568ec, type: 3}
+      propertyPath: m_ShadowColor.g
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582127076094991259, guid: 40906214bac0d8c4cadf4a7a538568ec, type: 3}
+      propertyPath: m_ShadowColor.r
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582127076094991259, guid: 40906214bac0d8c4cadf4a7a538568ec, type: 3}
+      propertyPath: m_ShadowIteration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582127076094991259, guid: 40906214bac0d8c4cadf4a7a538568ec, type: 3}
+      propertyPath: m_ShadowDistance.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582127076094991259, guid: 40906214bac0d8c4cadf4a7a538568ec, type: 3}
+      propertyPath: m_ShadowDistance.y
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 6590437244460187397, guid: 40906214bac0d8c4cadf4a7a538568ec, type: 3}
       propertyPath: m_Pivot.x
