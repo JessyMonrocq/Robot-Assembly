@@ -163,9 +163,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScrewButton
   button: {fileID: 3047300304344265434}
   rectTransform: {fileID: 405741883543578477}
-  rotationAmount: 4
-  rotatingSpeed: 1
-  rotatingDelay: 0.2
+  rotationAmount: 3
+  rotatingSpeed: 0.5
+  rotatingDelay: 0.1
   rotatingEase: 22
   rb: {fileID: 6372622749266569938}
   timeToDestroy: 2.5
