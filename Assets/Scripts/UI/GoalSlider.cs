@@ -29,6 +29,11 @@ public class GoalSlider : MonoBehaviour
         goalReached = false;
     }
 
+    public void DisableSlider()
+    {
+        interactSlider.interactable = false;
+    }
+
     public void Initialize(float value)
     {
         goalSlider.value = value;

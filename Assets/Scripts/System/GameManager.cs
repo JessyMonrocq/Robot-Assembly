@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private StartScreenManager startScreenManager;
     [SerializeField] private RequestsScreenManager requestsScreenManager;
     [SerializeField] private AssemblerGameManager assemblerGameManager;
-    [SerializeField] private AssemblingMiniGameManager assemblerMiniGameManager;
+    [SerializeField] private InteractionsScreenManager interactionsScreenManager;
     [SerializeField] private ResultScreenManager resultScreenManager;
 
     [SerializeField] private float transitionSpeed = 0.5f;
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         if (success)
         {
             TransitionBetweenScreens(assemblerScreen, assemblerMiniGameScreen);
-            assemblerMiniGameManager.InitializeMiniGame();
+            interactionsScreenManager.InitializeMiniGame();
             currentRobotResult = results;
         }
         else
@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
 
     public void GoToMinigame(CanvasGroup cg)
     {
-        assemblerMiniGameManager.InitializeMiniGame();
+        interactionsScreenManager.InitializeMiniGame();
         TransitionBetweenScreens(cg, assemblerMiniGameScreen);
     }
 

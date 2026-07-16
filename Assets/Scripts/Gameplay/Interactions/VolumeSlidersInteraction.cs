@@ -7,7 +7,7 @@ public class VolumeSlidersInteraction : MiniInteraction
     private int slidersCount;
 
     private const int randomMin = 1;
-    private const int randomMax = 10;
+    private const int randomMax = 11;
 
     private void OnEnable()
     {
@@ -27,12 +27,12 @@ public class VolumeSlidersInteraction : MiniInteraction
 
     public override void ResetInteraction()
     {
-        slidersCount = 0;
-
         foreach (GoalSlider gl in goalSliders)
         {
             gl.ResetGoalSlider();
         }
+
+        slidersCount = 0;
     }
 
     public override void InitializeInteraction()
@@ -51,6 +51,11 @@ public class VolumeSlidersInteraction : MiniInteraction
 
         if (slidersCount == goalSliders.Length)
         {
+            foreach (GoalSlider gl in goalSliders)
+            {
+                gl.DisableSlider();
+            }
+
             InvokeOnInteractionCompleted();
         }
     }

@@ -88,7 +88,7 @@ public class SwitchesInteraction : MiniInteraction
                 sb.CanInteract(false);
             }
 
-            Debug.Log("SwitchesInteraction: All chosen ON and all others OFF -> completed");
+            InvokeOnInteractionCompleted();
         }
     }
 }
