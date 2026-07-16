@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 5018175810993837972}
   - component: {fileID: 4686038282139620945}
   m_Layer: 5
-  m_Name: Sliders
+  m_Name: SlidersInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,7 +113,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 450, y: 600}
+  m_SizeDelta: {x: 425, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4686038282139620945
 MonoBehaviour:
@@ -213,7 +213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1054617202986080301, guid: ea530830d06d08149bbebcfb51d2479e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 92.5
+      value: 87.5
       objectReference: {fileID: 0}
     - target: {fileID: 1054617202986080301, guid: ea530830d06d08149bbebcfb51d2479e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -366,7 +366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1054617202986080301, guid: ea530830d06d08149bbebcfb51d2479e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 382.5
+      value: 357.5
       objectReference: {fileID: 0}
     - target: {fileID: 1054617202986080301, guid: ea530830d06d08149bbebcfb51d2479e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -519,7 +519,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1054617202986080301, guid: ea530830d06d08149bbebcfb51d2479e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 237.5
+      value: 222.5
       objectReference: {fileID: 0}
     - target: {fileID: 1054617202986080301, guid: ea530830d06d08149bbebcfb51d2479e, type: 3}
       propertyPath: m_AnchoredPosition.y
