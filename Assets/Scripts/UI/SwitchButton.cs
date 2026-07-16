@@ -4,10 +4,15 @@ using UnityEngine.UI;
 
 public class SwitchButton : MonoBehaviour
 {
-    public event Action<bool> OnSwitch;
+    public event Action<SwitchButton, bool> OnSwitch;
 
     [SerializeField] private Button button;
     [SerializeField] private RectTransform switchImage;
+
+    public bool IsOn
+    {
+        get { return isOn; }
+    }
 
     private bool isOn;
 
@@ -42,6 +47,6 @@ public class SwitchButton : MonoBehaviour
         isOn = !isOn;
         switchImage.localScale = isOn ? Vector3.one : new Vector3(1, -1, 1);
 
-        OnSwitch?.Invoke(isOn);
+        OnSwitch?.Invoke(this, isOn);
     }
 }

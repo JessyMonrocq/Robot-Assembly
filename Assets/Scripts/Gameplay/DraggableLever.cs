@@ -64,6 +64,13 @@ public class DraggableLever : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         ApplyValueToHandleImmediate();
     }
 
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        SetCurrentValueImmediate(initialValue);
+    }
+#endif
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if (snapToPointerOnDown && canInteract)

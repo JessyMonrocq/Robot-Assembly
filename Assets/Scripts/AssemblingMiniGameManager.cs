@@ -29,7 +29,7 @@ public class AssemblingMiniGameManager : MonoBehaviour
 
         foreach (SwitchButton switchButton in switchButtons)
         {
-            switchButton.OnSwitch += UpdateSwitchButtonCount;
+            //switchButton.OnSwitch += UpdateSwitchButtonCount;
         }
 
         batteryPanelSlider.OnValueChanged.AddListener(UpdatePanelSliderState);
@@ -46,7 +46,7 @@ public class AssemblingMiniGameManager : MonoBehaviour
 
         foreach (SwitchButton switchButton in switchButtons)
         {
-            switchButton.OnSwitch -= UpdateSwitchButtonCount;
+            //switchButton.OnSwitch -= UpdateSwitchButtonCount;
         }
 
         batteryPanelSlider.OnValueChanged.RemoveAllListeners();

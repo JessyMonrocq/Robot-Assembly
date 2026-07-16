@@ -1833,7 +1833,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -652.4999, y: 145}
+  m_AnchoredPosition: {x: -652.49994, y: 145}
   m_SizeDelta: {x: -1345, y: -310}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &175043911
@@ -5215,7 +5215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5166647559784113841, guid: 5fca6f4d8386f654f8025be9c09ce072, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -35.833313
+      value: -35.833332
       objectReference: {fileID: 0}
     - target: {fileID: 5720676245359419011, guid: 5fca6f4d8386f654f8025be9c09ce072, type: 3}
       propertyPath: m_AnchorMax.y
@@ -6969,7 +6969,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 192.5}
   m_SizeDelta: {x: 275, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &602453312
@@ -11735,7 +11735,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -574.9999, y: 130}
+  m_AnchoredPosition: {x: -574.99994, y: 130}
   m_SizeDelta: {x: -1150, y: -140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1221767306
@@ -13217,9 +13217,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450345965}
   m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!114 &1450345968
 MonoBehaviour:
@@ -24879,7 +24879,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5166647559784113841, guid: 5fca6f4d8386f654f8025be9c09ce072, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -33.333332
+      value: -33.33333
       objectReference: {fileID: 0}
     - target: {fileID: 5720676245359419011, guid: 5fca6f4d8386f654f8025be9c09ce072, type: 3}
       propertyPath: m_AnchorMax.y
@@ -27148,7 +27148,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1635761749326606382, guid: d5866f84244db4c42858f94bac9f61b4, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6246082567976970994, guid: d5866f84244db4c42858f94bac9f61b4, type: 3}
       propertyPath: m_Pivot.x
