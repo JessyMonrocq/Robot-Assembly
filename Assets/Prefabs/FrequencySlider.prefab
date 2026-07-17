@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.8381572, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.8381572, b: 1, a: 0.5882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -441,6 +441,10 @@ MonoBehaviour:
   goalSlider: {fileID: 4438578063703231173}
   gaugeHandle: {fileID: 6404523516565785782}
   goalHandle: {fileID: 3259353907203523531}
+  backgroundImage: {fileID: 5488532209662067970}
+  defaultBackgroundColor: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+  errorBackgroundColor: {r: 0.39215687, g: 0, b: 0, a: 1}
+  correctBackgroundColor: {r: 0, g: 0.29411766, b: 0.39215687, a: 1}
   frequencySpeed: 1.1
   frequencyEase: 4
 --- !u!114 &7859587000886567956

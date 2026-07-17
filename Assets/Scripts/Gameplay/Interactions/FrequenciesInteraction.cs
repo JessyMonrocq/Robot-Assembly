@@ -61,6 +61,7 @@ public class FrequenciesInteraction : MiniInteraction
         if (frequencyAligned)
         {
             frequencySliders[frequencySlidersCount].StopFrequency();
+            frequencySliders[frequencySlidersCount].SetBackgroundColor(FrequencySlider.FrequencyState.Correct);
             frequencySlidersCount++;
             if (frequencySlidersCount == frequencySliders.Length)
             {
@@ -86,12 +87,12 @@ public class FrequenciesInteraction : MiniInteraction
 
     private IEnumerator WrongInputCoroutine()
     {
-        // Set color red
+        frequencySliders[frequencySlidersCount].SetBackgroundColor(FrequencySlider.FrequencyState.Error);
         // Shake the screen
 
         yield return new WaitForSeconds(wrongInputDelay);
 
-        // Set color back to normal
+        frequencySliders[frequencySlidersCount].SetBackgroundColor(FrequencySlider.FrequencyState.Default);
         interactable = true;
     }
 }
