@@ -98,14 +98,15 @@ public class GameManager : MonoBehaviour
 
     public void GoToResultScreen(CanvasGroup cg)
     {
-        // PLAYTEST
-        if (PlaytestLogger.Instance != null)
-        {
-            PlaytestLogger.Instance.OnMiniGameFinished();
-        }
-
         TransitionBetweenScreens(cg, resultsScreen);
         resultScreenManager.SetResultStatistics(currentRobotResult);
+
+        // PLAYTEST
+        string finalSatisfactionLevel = resultScreenManager.GetFinalSatisfactionLevel();
+        if (PlaytestLogger.Instance != null)
+        {
+            PlaytestLogger.Instance.OnMiniGameFinished(finalSatisfactionLevel);
+        }
     }
 
     public void GoToRequestScreen(CanvasGroup cg)

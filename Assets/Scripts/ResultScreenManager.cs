@@ -23,6 +23,7 @@ public class ResultScreenManager : MonoBehaviour
     [SerializeField] private SatisfactionLevel perfectLevel;
 
     private RobotResult robotResult;
+    private string lastFinalSatisfaction;
     #endregion
 
     #region Public Methods
@@ -39,11 +40,17 @@ public class ResultScreenManager : MonoBehaviour
     {
         failurePanel.SetActive(true);
         resultPanel.SetActive(false);
+        lastFinalSatisfaction = "Failure";
     }
 
     public void BackToMenu()
     {
         GameManager.Instance.GoToRequestScreen(GetComponent<CanvasGroup>());
+    }
+
+    public string GetFinalSatisfactionLevel()
+    {
+        return lastFinalSatisfaction ?? "N/A";
     }
     #endregion
 
@@ -52,6 +59,7 @@ public class ResultScreenManager : MonoBehaviour
     {
         if (robotResult == null)
         {
+            lastFinalSatisfaction = "N/A";
             return;
         }
 
@@ -72,11 +80,13 @@ public class ResultScreenManager : MonoBehaviour
     {
         if (robotResult == null)
         {
+            lastFinalSatisfaction = "N/A";
             return;
         }
 
         int count = 0;
         int sumDegrees = 0;
+        bool allPerfect = true;
 
         foreach (var (_, stat) in robotResult.EnumerateStats())
         {
@@ -101,7 +111,13 @@ public class ResultScreenManager : MonoBehaviour
                     finalScoreComment.text = SatisfactionLevel.SatisfactionDegree.Unsatisfied.ToString();
                 }
 
+                lastFinalSatisfaction = "Unsatisfied";
                 return;
+            }
+
+            if (stat.SatisfactionDegree != SatisfactionLevel.SatisfactionDegree.Perfect)
+            {
+                allPerfect = false;
             }
 
             sumDegrees += (int)stat.SatisfactionDegree;
@@ -109,11 +125,18 @@ public class ResultScreenManager : MonoBehaviour
 
         if (count == 0)
         {
+            lastFinalSatisfaction = "N/A";
             return;
         }
 
         float avg = (float)sumDegrees / count;
         int nearest = Mathf.Clamp(Mathf.RoundToInt(avg), (int)SatisfactionLevel.SatisfactionDegree.Unsatisfied, (int)SatisfactionLevel.SatisfactionDegree.Perfect);
+        
+        if (nearest == (int)SatisfactionLevel.SatisfactionDegree.Perfect && !allPerfect)
+        {
+            nearest = (int)SatisfactionLevel.SatisfactionDegree.Good;
+        }
+
         var averagedDegree = (SatisfactionLevel.SatisfactionDegree)nearest;
         var averagedSL = GetSatisfactionLevel(averagedDegree);
 
@@ -127,6 +150,16 @@ public class ResultScreenManager : MonoBehaviour
         {
             finalScoreComment.text = averagedDegree.ToString();
         }
+
+        lastFinalSatisfaction = averagedDegree switch
+        {
+            SatisfactionLevel.SatisfactionDegree.Unsatisfied => "Unsatisfied",
+            SatisfactionLevel.SatisfactionDegree.Poor => "Bad",
+            SatisfactionLevel.SatisfactionDegree.Average => "Average",
+            SatisfactionLevel.SatisfactionDegree.Good => "Good",
+            SatisfactionLevel.SatisfactionDegree.Perfect => "Perfect",
+            _ => averagedDegree.ToString()
+        };
     }
 
     private void CreateDisplay(string statName, RobotStatResult stat)

@@ -111,7 +111,6 @@ public class PlaytestLogger : MonoBehaviour
     public void OnMiniGameStarted()
     {
         if (!isEnabled) return;
-
         if (miniStartTime <= 0f)
         {
             miniStartTime = Time.realtimeSinceStartup;
@@ -119,14 +118,13 @@ public class PlaytestLogger : MonoBehaviour
         }
     }
 
-    public void OnMiniGameFinished()
+    public void OnMiniGameFinished(string finalSatisfactionFromResults = null)
     {
         if (!isEnabled) return;
-
         miniEndTime = Time.realtimeSinceStartup;
         Debug.Log($"[PlaytestLogger] MiniGame finished at {miniEndTime} for request {currentRequestName}");
 
-        WriteEntry(isFailure: false);
+        WriteEntry(isFailure: false, finalSatisfactionOverride: finalSatisfactionFromResults);
         ClearCurrentState();
     }
 
@@ -138,7 +136,7 @@ public class PlaytestLogger : MonoBehaviour
         currentSuccess = false;
     }
 
-    private void WriteEntry(bool isFailure)
+    private void WriteEntry(bool isFailure, string finalSatisfactionOverride = null)
     {
         if (string.IsNullOrEmpty(sessionFilePath))
         {
@@ -158,7 +156,7 @@ public class PlaytestLogger : MonoBehaviour
                 assemblingTimeStr = assemblingSeconds.ToString(CultureInfo.InvariantCulture);
             }
             miniTimeStr = "";
-            finalSatisfaction = "failure";
+            finalSatisfaction = finalSatisfactionOverride ?? "failure";
         }
         else
         {
@@ -175,7 +173,7 @@ public class PlaytestLogger : MonoBehaviour
                 miniTimeStr = miniSeconds.ToString(CultureInfo.InvariantCulture);
             }
 
-            finalSatisfaction = DetermineFinalSatisfaction(currentRobotResult);
+            finalSatisfaction = finalSatisfactionOverride ?? DetermineFinalSatisfaction(currentRobotResult);
         }
 
         string line = $"{EscapeCsv(requestName)},{assemblingTimeStr},{miniTimeStr},{EscapeCsv(finalSatisfaction)}\n";
