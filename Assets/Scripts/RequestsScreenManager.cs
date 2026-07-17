@@ -8,6 +8,7 @@ public class RequestsScreenManager : MonoBehaviour
     [SerializeField] private CanvasGroup categoriesCG;
     [SerializeField] private CanvasGroup requestsListCG;
     [SerializeField] private CanvasGroup requestCG;
+    [SerializeField] private CanvasGroup tutorialCG;
     [SerializeField] private Button requestButtonPrefab;
     [SerializeField] private Transform requestsListParent;
     [SerializeField] private RequestTicket requestTicket;
@@ -24,9 +25,14 @@ public class RequestsScreenManager : MonoBehaviour
         GameManager.Instance.TransitionBetweenScreens(requestCG, requestsListCG);
     }
 
-    public void ReturnToCategories()
+    public void ReturnToCategories(CanvasGroup cg)
     {
-        GameManager.Instance.TransitionBetweenScreens(requestsListCG, categoriesCG);
+        GameManager.Instance.TransitionBetweenScreens(cg, categoriesCG);
+    }
+
+    public void GoToTutorialScreen()
+    {
+        GameManager.Instance.TransitionBetweenScreens(categoriesCG, tutorialCG);
     }
 
     public void SetupRequestsList(RequestsListSO requestsList)
