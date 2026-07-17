@@ -103,5 +103,11 @@ public class InteractionsScreenManager : MonoBehaviour
 
         currentInteraction = Interaction.Left;
         leftSideInteractions[leftIndex].InitializeInteraction();
+
+        // PLAYTEST
+        if (PlaytestLogger.Instance != null)
+        {
+            PlaytestLogger.Instance.OnMiniGameStarted();
+        }
     }
 }

@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
+        Debug.Log(Application.persistentDataPath.ToString());
+
         currentRobotResult = null;
 
         SetCanvasGroup(startScreen, false);
@@ -65,6 +67,12 @@ public class GameManager : MonoBehaviour
         assemblerGameManager.ResetAssemblerGame(request.Chrono, chronoDelay);
         assemblerGameManager.SetRequestedStatistics(request.RequestStats);
         TransitionBetweenScreens(requestScreen, assemblerScreen);
+
+        // PLAYTEST
+        if (PlaytestLogger.Instance != null)
+        {
+            PlaytestLogger.Instance.OnRequestStarted(request);
+        }
     }
 
     public void HandleRequestResults(RobotResult results, bool success)
@@ -80,10 +88,22 @@ public class GameManager : MonoBehaviour
             TransitionBetweenScreens(assemblerScreen, resultsScreen);
             resultScreenManager.DisplayFailureScreen();
         }
+
+        // PLAYTEST 
+        if (PlaytestLogger.Instance != null)
+        {
+            PlaytestLogger.Instance.OnRequestFinished(results, success);
+        }
     }
 
     public void GoToResultScreen(CanvasGroup cg)
     {
+        // PLAYTEST
+        if (PlaytestLogger.Instance != null)
+        {
+            PlaytestLogger.Instance.OnMiniGameFinished();
+        }
+
         TransitionBetweenScreens(cg, resultsScreen);
         resultScreenManager.SetResultStatistics(currentRobotResult);
     }
