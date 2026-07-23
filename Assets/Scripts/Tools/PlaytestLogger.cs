@@ -238,7 +238,7 @@ public class PlaytestLogger : MonoBehaviour
         return averagedDegree switch
         {
             SatisfactionLevel.SatisfactionDegree.Unsatisfied => "Unsatisfied",
-            SatisfactionLevel.SatisfactionDegree.Poor => "Bad",
+            SatisfactionLevel.SatisfactionDegree.Poor => "Poor",
             SatisfactionLevel.SatisfactionDegree.Average => "Average",
             SatisfactionLevel.SatisfactionDegree.Good => "Good",
             SatisfactionLevel.SatisfactionDegree.Perfect => "Perfect",

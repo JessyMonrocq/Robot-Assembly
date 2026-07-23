@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Ease transitionEase;
 
     private RobotResult currentRobotResult;
+    private RequestSO currentRequest;
     #endregion
 
     #region Unity Methods
@@ -64,6 +65,8 @@ public class GameManager : MonoBehaviour
     #region Public Methods
     public void StartAssembling(RequestSO request)
     {
+        currentRequest = request;
+
         assemblerGameManager.ResetAssemblerGame(request.Chrono, chronoDelay);
         assemblerGameManager.SetRequestedStatistics(request.RequestStats);
         TransitionBetweenScreens(requestScreen, assemblerScreen);
@@ -101,8 +104,15 @@ public class GameManager : MonoBehaviour
         TransitionBetweenScreens(cg, resultsScreen);
         resultScreenManager.SetResultStatistics(currentRobotResult);
 
-        // PLAYTEST
         string finalSatisfactionLevel = resultScreenManager.GetFinalSatisfactionLevel();
+
+        if (currentRequest != null && !string.IsNullOrEmpty(finalSatisfactionLevel))
+        {
+            SaveData.SetRequestSatisfactionIfHigher(currentRequest.name, finalSatisfactionLevel, resultScreenManager.SatisfactionLevelsSO);
+            SaveData.SaveToFile();
+        }
+
+        // PLAYTEST
         if (PlaytestLogger.Instance != null)
         {
             PlaytestLogger.Instance.OnMiniGameFinished(finalSatisfactionLevel);
@@ -129,6 +139,11 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void EraseAllSaveData()
+    {
+        SaveData.ResetAll();
     }
 
     public void SetCanvasGroup(CanvasGroup cg, bool enabled)

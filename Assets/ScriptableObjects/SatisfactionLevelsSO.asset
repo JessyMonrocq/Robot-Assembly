@@ -12,6 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027e96047a82e7241bd5f225a69715f7, type: 3}
   m_Name: SatisfactionLevelsSO
   m_EditorClassIdentifier: Assembly-CSharp::SatisfactionLevelsSO
+  unsatisfied:
+    satisfactionDegree: 0
+    satisfactionIcon: {fileID: 2649847697073447219, guid: 855189cd0059a854db2da669fb2b4b45, type: 3}
+    iconColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  poor:
+    satisfactionDegree: 1
+    satisfactionIcon: {fileID: -3752711834126370623, guid: bb5e190cb5de9b647839865ad57843d4, type: 3}
+    iconColor: {r: 1, g: 0, b: 0, a: 1}
+  average:
+    satisfactionDegree: 2
+    satisfactionIcon: {fileID: 3593975562327985826, guid: 7b1772d5d7650e4439ed234d790fca04, type: 3}
+    iconColor: {r: 1, g: 0.78431374, b: 0, a: 1}
+  good:
+    satisfactionDegree: 3
+    satisfactionIcon: {fileID: 7985626363670038235, guid: 0b928d10078d77040b95cb1f129ea3bc, type: 3}
+    iconColor: {r: 0, g: 1, b: 0, a: 1}
+  perfect:
+    satisfactionDegree: 4
+    satisfactionIcon: {fileID: 8961672394662530126, guid: 1d7487be5dacde347a13ca4603fd1871, type: 3}
+    iconColor: {r: 0, g: 0.78431374, b: 1, a: 1}
   poorThreshold: 0.33333334
   averageThreshold: 0.6666667
   goodThreshold: 1

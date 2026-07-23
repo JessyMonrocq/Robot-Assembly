@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,11 +15,9 @@ public class ResultScreenManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI finalScoreComment;
 
     [Header("Satisfaction Levels")]
-    [SerializeField] private SatisfactionLevel unsatisfiedLevel;
-    [SerializeField] private SatisfactionLevel poorLevel;
-    [SerializeField] private SatisfactionLevel averageLevel;
-    [SerializeField] private SatisfactionLevel goodLevel;
-    [SerializeField] private SatisfactionLevel perfectLevel;
+    [SerializeField] private SatisfactionLevelsSO satisfactionLevelsSO;
+
+    public SatisfactionLevelsSO SatisfactionLevelsSO => satisfactionLevelsSO;
 
     private RobotResult robotResult;
     private string lastFinalSatisfaction;
@@ -154,7 +151,7 @@ public class ResultScreenManager : MonoBehaviour
         lastFinalSatisfaction = averagedDegree switch
         {
             SatisfactionLevel.SatisfactionDegree.Unsatisfied => "Unsatisfied",
-            SatisfactionLevel.SatisfactionDegree.Poor => "Bad",
+            SatisfactionLevel.SatisfactionDegree.Poor => "Poor",
             SatisfactionLevel.SatisfactionDegree.Average => "Average",
             SatisfactionLevel.SatisfactionDegree.Good => "Good",
             SatisfactionLevel.SatisfactionDegree.Perfect => "Perfect",
@@ -176,15 +173,7 @@ public class ResultScreenManager : MonoBehaviour
 
     private SatisfactionLevel GetSatisfactionLevel(SatisfactionLevel.SatisfactionDegree degree)
     {
-        return degree switch
-        {
-            SatisfactionLevel.SatisfactionDegree.Unsatisfied => unsatisfiedLevel,
-            SatisfactionLevel.SatisfactionDegree.Poor => poorLevel,
-            SatisfactionLevel.SatisfactionDegree.Average => averageLevel,
-            SatisfactionLevel.SatisfactionDegree.Good => goodLevel,
-            SatisfactionLevel.SatisfactionDegree.Perfect => perfectLevel,
-            _ => throw new ArgumentOutOfRangeException(nameof(degree), degree, null)
-        };
+        return satisfactionLevelsSO.GetByDegree(degree);
     }
     #endregion
 }

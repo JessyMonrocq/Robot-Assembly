@@ -13,6 +13,9 @@ public class RequestsScreenManager : MonoBehaviour
     [SerializeField] private Transform requestsListParent;
     [SerializeField] private RequestTicket requestTicket;
 
+    [Header("Satisfaction Levels")]
+    [SerializeField] private SatisfactionLevelsSO satisfactionLevelsSO;
+
     public void InitializeRequestsScreenManager()
     {
         GameManager.Instance.SetCanvasGroup(categoriesCG, true);
@@ -49,6 +52,20 @@ public class RequestsScreenManager : MonoBehaviour
             Button button = Instantiate(requestButtonPrefab, requestsListParent);
             button.GetComponentInChildren<TextMeshProUGUI>().text = i.ToString();
             button.onClick.AddListener(delegate { DisplayRequestTicket(requestSO); });
+
+            string saved = SaveData.GetRequestSatisfaction(requestSO.name);
+            if (!string.IsNullOrEmpty(saved))
+            {
+                RequestButton rb = button.GetComponent<RequestButton>();
+                if (rb != null && satisfactionLevelsSO != null)
+                {
+                    if (satisfactionLevelsSO.TryGetByName(saved, out SatisfactionLevel sl))
+                    {
+                        rb.AssignSatisfactionLevel(sl);
+                    }
+                }
+            }
+
             i++;
         }
 

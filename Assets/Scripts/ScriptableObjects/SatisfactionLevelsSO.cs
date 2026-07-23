@@ -3,7 +3,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SatisfactionLevelsSO", menuName = "Scriptable Objects/SatisfactionLevelsSO")]
 public class SatisfactionLevelsSO : ScriptableObject
 {
-    [Header("Satisfaction levels")]
+    #region Inspector Fields
+    [Header("Satisfaction levels ")]
+    public SatisfactionLevel unsatisfied;
+    public SatisfactionLevel poor;
+    public SatisfactionLevel average;
+    public SatisfactionLevel good;
+    public SatisfactionLevel perfect;
+
+    [Header("Satisfaction levels threshold")]
     [Range(0f, 1f)] public float poorThreshold = (1f/3f);
 
     [Range(0f, 1f)] public float averageThreshold = (2f/3f);
@@ -14,6 +22,36 @@ public class SatisfactionLevelsSO : ScriptableObject
     [Min(1)] public int partitions = 3;
 
     public float Partition => 1f / Mathf.Max(1, partitions);
+    #endregion
+
+    #region Methods
+    public SatisfactionLevel GetByDegree(SatisfactionLevel.SatisfactionDegree degree)
+    {
+        return degree switch
+        {
+            SatisfactionLevel.SatisfactionDegree.Unsatisfied => unsatisfied,
+            SatisfactionLevel.SatisfactionDegree.Poor => poor,
+            SatisfactionLevel.SatisfactionDegree.Average => average,
+            SatisfactionLevel.SatisfactionDegree.Good => good,
+            SatisfactionLevel.SatisfactionDegree.Perfect => perfect,
+            _ => unsatisfied
+        };
+    }
+
+    public bool TryGetByName(string saved, out SatisfactionLevel sl)
+    {
+        sl = unsatisfied;
+        if (string.IsNullOrWhiteSpace(saved)) return false;
+        switch (saved.Trim().ToLowerInvariant())
+        {
+            case "unsatisfied": sl = unsatisfied; return true;
+            case "poor": sl = poor; return true;
+            case "average": sl = average; return true;
+            case "good": sl = good; return true;
+            case "perfect": sl = perfect; return true;
+            default: return false;
+        }
+    }
 
     public SatisfactionLevel.SatisfactionDegree MapRatioToSatisfactionDegree(float ratio)
     {
@@ -35,4 +73,5 @@ public class SatisfactionLevelsSO : ScriptableObject
 
         partitions = Mathf.Max(1, partitions);
     }
+    #endregion
 }
