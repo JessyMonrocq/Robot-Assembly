@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [Header("Game Manager References")]
     [SerializeField] private CanvasGroup startScreen;
     [SerializeField] private CanvasGroup menuScreen;
+    [SerializeField] private CanvasGroup optionsScreen;
     [SerializeField] private CanvasGroup requestScreen;
     [SerializeField] private CanvasGroup assemblerScreen;
     [SerializeField] private CanvasGroup assemblerMiniGameScreen;
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
 
         SetCanvasGroup(startScreen, false);
         SetCanvasGroup(menuScreen, false);
+        SetCanvasGroup(optionsScreen, false);
         SetCanvasGroup(requestScreen, false);
         SetCanvasGroup(assemblerScreen, false);
         SetCanvasGroup(assemblerMiniGameScreen, false);
