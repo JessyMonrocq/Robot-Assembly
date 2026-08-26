@@ -43,8 +43,6 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
-        Debug.Log(Application.persistentDataPath.ToString());
-
         currentRobotResult = null;
 
         SetCanvasGroup(startScreen, false);
