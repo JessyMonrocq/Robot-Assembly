@@ -155,7 +155,7 @@ MonoBehaviour:
   m_SamplingFilter: 0
   m_SamplingIntensity: 0.5
   m_SamplingWidth: 1
-  m_SamplingScale: 1
+  m_SamplingScale: 3
   m_TransitionFilter: 0
   m_TransitionRate: 0.5
   m_TransitionReverse: 0
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_EdgeMode: 0
   m_EdgeWidth: 1
   m_EdgeColorFilter: 4
-  m_EdgeColor: {r: 1, g: 0.903612, b: 0, a: 1}
+  m_EdgeColor: {r: 1, g: 1, b: 1, a: 1}
   m_EdgeColorGlow: 0
   m_EdgeShinyRate: 0.5
   m_EdgeShinyWidth: 0.5
