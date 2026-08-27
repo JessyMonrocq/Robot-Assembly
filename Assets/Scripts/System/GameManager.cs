@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CanvasGroup startScreen;
     [SerializeField] private CanvasGroup menuScreen;
     [SerializeField] private CanvasGroup optionsScreen;
+    [SerializeField] private CanvasGroup creditsScreen;
     [SerializeField] private CanvasGroup requestScreen;
     [SerializeField] private CanvasGroup assemblerScreen;
     [SerializeField] private CanvasGroup assemblerMiniGameScreen;
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
         SetCanvasGroup(startScreen, false);
         SetCanvasGroup(menuScreen, false);
         SetCanvasGroup(optionsScreen, false);
+        SetCanvasGroup(creditsScreen, false);
         SetCanvasGroup(requestScreen, false);
         SetCanvasGroup(assemblerScreen, false);
         SetCanvasGroup(assemblerMiniGameScreen, false);
@@ -126,6 +128,11 @@ public class GameManager : MonoBehaviour
     {
         requestsScreenManager.InitializeRequestsScreenManager();
         TransitionBetweenScreens(cg, requestScreen);
+    }
+
+    public void GoToCreditsScreen(CanvasGroup cg)
+    {
+        TransitionBetweenScreens(cg, creditsScreen);
     }
 
     public void GoToMenu(CanvasGroup cg)
