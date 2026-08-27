@@ -5,11 +5,11 @@ public class FrequenciesInteraction : MiniInteraction
 {
     [SerializeField] private FrequencySlider[] frequencySliders;
 
+    [SerializeField] private float wrongInputDelay = 0.75f;
+
     private bool frequencyAligned;
     private bool interactable;
     private int frequencySlidersCount;
-
-    private const float wrongInputDelay = 1f;
 
     private void OnEnable()
     {

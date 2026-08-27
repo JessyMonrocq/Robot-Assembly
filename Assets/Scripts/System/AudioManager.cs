@@ -81,7 +81,9 @@ public class AudioManager : MonoBehaviour
     public void StopMusic(float fadeOutDuration = 1f)
     {
         if (musicTransitionCoroutine != null)
+        {
             StopCoroutine(musicTransitionCoroutine);
+        }
 
         musicTransitionCoroutine = StartCoroutine(StopMusicCoroutine(fadeOutDuration));
     }
