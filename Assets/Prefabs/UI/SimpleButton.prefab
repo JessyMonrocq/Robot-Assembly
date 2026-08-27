@@ -149,8 +149,10 @@ GameObject:
   - component: {fileID: 5454975942027044858}
   - component: {fileID: 190719078405634922}
   - component: {fileID: 2025392342371101396}
-  - component: {fileID: 1717892817017769297}
   - component: {fileID: 3548786983856769600}
+  - component: {fileID: 1717892817017769297}
+  - component: {fileID: 4474377696102190586}
+  - component: {fileID: 4754380447031737088}
   m_Layer: 5
   m_Name: SimpleButton
   m_TagString: Untagged
@@ -260,19 +262,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1717892817017769297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7004895925014446378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d22355d24173c6947b16752fea0921e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlaySoundEvent
-  soundName: Empty SFX
 --- !u!114 &3548786983856769600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,3 +278,74 @@ MonoBehaviour:
   hoverScale: 1.025
   animDuration: 0.1
   animEase: 7
+--- !u!114 &1717892817017769297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7004895925014446378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22355d24173c6947b16752fea0921e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlaySoundEvent
+  soundName: Generic Pop SFX
+--- !u!114 &4474377696102190586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7004895925014446378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22355d24173c6947b16752fea0921e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlaySoundEvent
+  soundName: Liquid High SFX
+--- !u!114 &4754380447031737088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7004895925014446378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4474377696102190586}
+          m_TargetAssemblyTypeName: PlaySoundEvent, Assembly-CSharp
+          m_MethodName: PlaySound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1717892817017769297}
+          m_TargetAssemblyTypeName: PlaySoundEvent, Assembly-CSharp
+          m_MethodName: PlaySound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2

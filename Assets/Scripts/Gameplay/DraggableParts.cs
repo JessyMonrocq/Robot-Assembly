@@ -5,6 +5,7 @@ using DG.Tweening;
 using System.Collections;
 using System;
 using Coffee.UIEffects;
+using UnityEngine.Events;
 
 public class DraggableParts : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -36,6 +37,9 @@ public class DraggableParts : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private bool socketDetected;
     private bool canDrag;
+
+    public UnityEvent OnItemDrag;
+    public UnityEvent OnItemDestroy;
     #endregion
 
     #region Unity Methods
@@ -88,6 +92,8 @@ public class DraggableParts : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         itemEffect.shadowMode = ShadowMode.Shadow;
 
         CurrentDraggedItem = this;
+
+        OnItemDrag?.Invoke();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -116,6 +122,9 @@ public class DraggableParts : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             }
 
             CurrentDraggedItem = null;
+
+            OnItemDestroy?.Invoke();
+
             DestroyItem();
             return;
         }

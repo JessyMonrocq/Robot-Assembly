@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -18,6 +19,8 @@ public class PartSocket : MonoBehaviour, IDropHandler
     private RectTransform rectTransform;
     private DraggableParts socketedItem;
     private bool isHighlighted;
+
+    public UnityEvent OnSocket;
     #endregion
 
     #region Unity Methods
@@ -108,6 +111,7 @@ public class PartSocket : MonoBehaviour, IDropHandler
         socketedItem.SetDraggable(false);
         socketedItem.SetCurrentParent(transform);
         isHighlighted = false;
+        OnSocket?.Invoke();
         yield return socketImage.rectTransform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack).WaitForCompletion();
         OnItemSocketed?.Invoke(socketedItem.RobotPartSO);
         socketedItem.SetDraggable(true);

@@ -18,6 +18,9 @@ public class AssemblerGameManager : MonoBehaviour
 
     [SerializeField] private float animationDuration = 0.5f;
     [SerializeField] private Ease animationEase = Ease.Linear;
+
+    [Header("Music References")]
+    [SerializeField] private PlayMusicEvent gameMusicEvent;
     #endregion
 
     #region Unity Methods
@@ -74,6 +77,8 @@ public class AssemblerGameManager : MonoBehaviour
         assembler.ResetAssembler();
 
         chronoDisplay.InitializeChrono(chrono, chronoDelay);
+
+        gameMusicEvent.PlayMusic();
     }
 
     public void InterruptGame()

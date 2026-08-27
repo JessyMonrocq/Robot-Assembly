@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     #region Inspector Fields
     public static GameManager Instance;
 
-    [Header("Game Manager References")]
+    [Header("Screen CanvasGroup References")]
     [SerializeField] private CanvasGroup startScreen;
     [SerializeField] private CanvasGroup menuScreen;
     [SerializeField] private CanvasGroup optionsScreen;
@@ -15,12 +15,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CanvasGroup assemblerScreen;
     [SerializeField] private CanvasGroup assemblerMiniGameScreen;
     [SerializeField] private CanvasGroup resultsScreen;
+
+    [Header("Screen Managers References")]
     [SerializeField] private StartScreenManager startScreenManager;
     [SerializeField] private RequestsScreenManager requestsScreenManager;
     [SerializeField] private AssemblerGameManager assemblerGameManager;
     [SerializeField] private InteractionsScreenManager interactionsScreenManager;
     [SerializeField] private ResultScreenManager resultScreenManager;
 
+    [Header("Screen Transition Settings")]
     [SerializeField] private float transitionSpeed = 0.5f;
     [SerializeField] private float transitionDelay = 0.5f;
     [SerializeField] private float chronoDelay = 1f;

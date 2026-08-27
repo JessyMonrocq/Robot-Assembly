@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7601009692989347026}
   - component: {fileID: 8373439408667019851}
+  - component: {fileID: 186568352455156813}
+  - component: {fileID: 8312073758396249736}
   m_Layer: 5
   m_Name: DraggablePart
   m_TagString: Untagged
@@ -58,6 +60,62 @@ MonoBehaviour:
   centerOnRelease: 1
   robotPartsListSO: {fileID: 11400000, guid: 197119854a574514d8453a2a94f14b35, type: 2}
   assignedRobotPart: {fileID: 11400000, guid: 27b10234c3abe114998a71be055eaa0f, type: 2}
+  OnItemDrag:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 186568352455156813}
+        m_TargetAssemblyTypeName: PlaySoundEvent, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnItemDestroy:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8312073758396249736}
+        m_TargetAssemblyTypeName: PlaySoundEvent, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &186568352455156813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453421498939086119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22355d24173c6947b16752fea0921e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlaySoundEvent
+  soundName: Grab Pop SFX
+--- !u!114 &8312073758396249736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453421498939086119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22355d24173c6947b16752fea0921e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlaySoundEvent
+  soundName: Destroy Pop SFX
 --- !u!1 &1557800812495303984
 GameObject:
   m_ObjectHideFlags: 0

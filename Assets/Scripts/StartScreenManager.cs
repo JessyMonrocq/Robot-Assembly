@@ -1,6 +1,7 @@
 using Coffee.UIEffects;
 using DG.Tweening;
 using EasyTextEffects;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,6 +29,9 @@ public class StartScreenManager : MonoBehaviour
     [SerializeField] private float screenLayoutOffset;
     [SerializeField] private float transitionAlpha;
     [SerializeField] private Ease screenLayoutEase;
+
+    [Header("Music References")]
+    [SerializeField] private PlayMusicEvent mainMusicEvent;
 
     public void ResetStartScreen()
     {
@@ -83,5 +87,7 @@ public class StartScreenManager : MonoBehaviour
         .SetEase(screenLayoutEase).WaitForCompletion();
         yield return new WaitForSeconds(screenLayoutDelay);
         GameManager.Instance.GoToMenu(screenCG);
+
+        mainMusicEvent.PlayMusic();
     }
 }

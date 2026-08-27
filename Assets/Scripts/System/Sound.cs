@@ -4,7 +4,6 @@ using UnityEngine.Audio;
 [System.Serializable]
 public class Sound
 {
-    [HideInInspector]
     public string name;
 
     public AudioClip clip;

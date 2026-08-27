@@ -17,6 +17,9 @@ public class ResultScreenManager : MonoBehaviour
     [Header("Satisfaction Levels")]
     [SerializeField] private SatisfactionLevelsSO satisfactionLevelsSO;
 
+    [Header("Music References")]
+    [SerializeField] private PlayMusicEvent mainMusicEvent;
+
     public SatisfactionLevelsSO SatisfactionLevelsSO => satisfactionLevelsSO;
 
     private RobotResult robotResult;
@@ -42,6 +45,8 @@ public class ResultScreenManager : MonoBehaviour
 
     public void BackToMenu()
     {
+        mainMusicEvent.PlayMusic();
+
         GameManager.Instance.GoToRequestScreen(GetComponent<CanvasGroup>());
     }
 
