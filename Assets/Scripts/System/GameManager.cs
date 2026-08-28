@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [Header("Screen CanvasGroup References")]
     [SerializeField] private CanvasGroup startScreen;
     [SerializeField] private CanvasGroup menuScreen;
-    [SerializeField] private CanvasGroup optionsScreen;
+    [SerializeField] private CanvasGroup settingsScreen;
     [SerializeField] private CanvasGroup creditsScreen;
     [SerializeField] private CanvasGroup requestScreen;
     [SerializeField] private CanvasGroup assemblerScreen;
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
 
         SetCanvasGroup(startScreen, false);
         SetCanvasGroup(menuScreen, false);
-        SetCanvasGroup(optionsScreen, false);
+        SetCanvasGroup(settingsScreen, false);
         SetCanvasGroup(creditsScreen, false);
         SetCanvasGroup(requestScreen, false);
         SetCanvasGroup(assemblerScreen, false);
@@ -128,6 +128,11 @@ public class GameManager : MonoBehaviour
     {
         requestsScreenManager.InitializeRequestsScreenManager();
         TransitionBetweenScreens(cg, requestScreen);
+    }
+
+    public void GoToSettingsScreen(CanvasGroup cg)
+    {
+        TransitionBetweenScreens(cg, settingsScreen);
     }
 
     public void GoToCreditsScreen(CanvasGroup cg)
